@@ -1,0 +1,7 @@
+INDEX VERSION 1.134
+C:\Users\Dell\Desktop\Project04-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\412989807.index
+\ORSProject-04\src\main\resources
+D:\daataa\RaysSoftware\Project04-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\412989807.index
+\ORSProject-04\src\main\java
+D:\daataa\RaysSoftware\Project04-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3481351218.index
+\ORSProject-04\src\main\java

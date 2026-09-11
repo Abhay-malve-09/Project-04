@@ -1,0 +1,36 @@
+package in.co.rays.proj4.model;
+
+import in.co.rays.proj4.bean.BaseBean;
+import in.co.rays.proj4.bean.StudentBean;
+import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
+
+public class StudentModel extends BaseModel<StudentBean>{
+
+	@Override
+	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
+		return 0;
+	}
+
+	@Override
+	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
+		
+	}
+
+	@Override
+	public String getWhereClause(StudentBean bean) {
+		return null;
+	}
+
+	@Override
+	public String getTable() {
+		return null;
+	}
+
+	@Override
+	public StudentBean getBean() {
+		return null;
+	}
+
+
+}

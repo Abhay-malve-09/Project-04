@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<list key="findhistory">
+			<item value="System.out.println(&quot;sql===&gt; &quot; + sql.toString());"/>
+			<item value="search"/>
+		</list>
+	</section>
+</section>

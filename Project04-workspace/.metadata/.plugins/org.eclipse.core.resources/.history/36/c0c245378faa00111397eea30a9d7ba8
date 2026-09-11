@@ -1,0 +1,96 @@
+package in.co.rays.proj4.test;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
+import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.model.UserModel;
+
+public class TestUserModel {
+
+	public static void main(String[] args) throws ParseException {
+		
+//		testAdd();
+//		testDelete();
+//		testFindByPk();
+		testSearch();
+		
+	}
+	
+	public static void testAdd() throws ParseException {
+		UserBean u = new UserBean();
+		UserModel model = new UserModel();
+		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
+		
+		u.setFirstName("Ram");
+		u.setLastName("Oswal");
+		u.setLogin("ram@gmail.com");
+		u.setPassword("ram1234");
+		u.setDob(s.parse("2003-05-13"));
+		u.setMobileNo("9977332674");
+		u.setRoleId(1);
+		u.setGender("M");
+		u.setCreatedBy("Abhay");
+		u.setModifiedBy("Abhay");
+		u.setCreatedDatetime(new Timestamp(new Date(0).getTime()));
+		u.setModifiedDatetime(new Timestamp(new Date(0).getTime()));
+		
+		model.add(u);
+	}
+	
+	public static void testDelete() {
+		
+		UserModel model = new UserModel();
+		
+		model.delete(3);
+	}
+	
+	public static void testFindByPk() {
+		
+		UserModel model = new UserModel();
+		
+		UserBean bean = new UserBean();
+		
+		bean = model.findByPK(2);
+		
+		System.out.println(bean.getId());
+		System.out.println(bean.getFirstName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getLogin());
+		System.out.println(bean.getPassword());
+		System.out.println(bean.getDob());
+		System.out.println(bean.getMobileNo());
+		System.out.println(bean.getRoleId());
+		System.out.println(bean.getGender());
+		
+	}
+	
+	public static void testSearch() {
+
+		UserModel model = new UserModel();
+		UserBean bean = new UserBean();
+		
+		bean.setFirstName("virat");
+
+		List<UserBean> list = model.search(bean, 1, 5);
+
+		Iterator<UserBean> it = list.iterator();
+		while (it.hasNext()) {
+			bean = it.next();
+			System.out.println(bean.getId());
+			System.out.println(bean.getFirsttName());
+			System.out.println(bean.getLasttName());
+			System.out.println(bean.getLogin());
+			System.out.println(bean.getPassword());
+			System.out.println(bean.getDob());
+			System.out.println(bean.getMobiletNo());
+			System.out.println("----------------");
+		}
+
+	}
+
+}
