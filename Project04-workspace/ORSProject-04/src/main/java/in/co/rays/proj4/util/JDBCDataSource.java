@@ -6,80 +6,88 @@ import java.util.ResourceBundle;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-//step1. make class final so child can not be created.
-//step2. make self type of static variable, static variable have one
-// copy/memory in life time.
-//step3. make default constructor private so no one other class can create
-// instance of this class.
-//step4. make getInstance method to return same class instance.
-public final class JDBCDataSource {
+//1. Provide Connection Re-useablity.
+//2. Provide Reliable Connection with database.
+//3. Provide Maximum Connection limitation with database.
 
-	private static JDBCDataSource jdbc = null;
-	private static ComboPooledDataSource cpds = null;
-	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
+public final class JDBCDataSource { // class name
 
-	private JDBCDataSource() {
+	private static final JDBCDataSource jdbc = null;  // static  variable
+	private ComboPooledDataSource cpds = null; 
+	
+	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.System");
+	
+	private JDBCDataSource() { //default constructor
 
-		cpds = new ComboPooledDataSource();
-
+		cpds =  new ComboPooledDataSource();
+		
 		try {
+			
 			cpds.setDriverClass(rb.getString("driver"));
 			cpds.setJdbcUrl(rb.getString("url"));
 			cpds.setUser(rb.getString("username"));
 			cpds.setPassword(rb.getString("password"));
 			cpds.setMaxPoolSize(30);
-			cpds.setMinPoolSize(5);
+			cpds.setMinPoolSize(10);
 			cpds.setAcquireIncrement(5);
-			cpds.setInitialPoolSize(5);
+			cpds.setInitialPoolSize(10);
+			
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+
+		e.getMessage();
+		
 		}
-
 	}
-
-	private static JDBCDataSource getInstance() {
-
-		if (jdbc == null) {
-			jdbc = new JDBCDataSource();
-			return jdbc;
+	
+	private static JDBCDataSource getInstance() {  //getInstance method
+		
+		if(jdbc == null) {
+			return new JDBCDataSource();
+			
 		}
-		return null;
-
+		
+		return jdbc;
 	}
-
+	
 	public static Connection getConnection() {
-
+		
 		try {
+		
 			return getInstance().cpds.getConnection();
+			
 		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
 		return null;
-
 	}
-
+	
 	public static void closeConnection(Connection conn) {
-
-		if (conn != null) {
+		
+		if(conn != null) {
+			
 			try {
 				conn.close();
-			} catch (SQLException e) {
+				
+			} catch (Exception e) {
+ 
 				e.printStackTrace();
 			}
 		}
-
 	}
-
+	
 	public static void trnRollBack(Connection conn) {
-
-		if (conn != null) {
+		
+		if(conn != null) {
+			
+		}
 			try {
 				conn.rollback();
-			} catch (SQLException e) {
+				
+			} catch (Exception e) {
+ 
 				e.printStackTrace();
 			}
-		}
-
 	}
-
 }

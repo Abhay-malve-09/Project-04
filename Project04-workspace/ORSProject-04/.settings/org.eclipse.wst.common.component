@@ -10,9 +10,8 @@
                 
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
                 
-        <property name="context-root" value="ORSProject-04"/>
-                
         <property name="java-output-path" value="/ORSProject-04/target/classes"/>
+        <property name="context-root" value="ORSProject-04"/>
             
     </wb-module>
     

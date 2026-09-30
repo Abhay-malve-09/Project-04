@@ -4,46 +4,116 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.StudentBean;
-import in.co.rays.proj4.model.RoleModel;
 import in.co.rays.proj4.model.StudentModel;
 
 public class TestStudentModel {
 
+	public static StudentModel model = new StudentModel();
+	
 	public static void main(String[] args) throws ParseException {
 		
 		testAdd();
-		testDelete();
+//		testUpdate();
+//		testDelete();
+//		testFindByPk();
+//		testSearch();
 	}
-	
-	public static void testAdd() throws ParseException {
-		
-		StudentBean s = new StudentBean();
-		StudentModel model =new StudentModel();
+
+	private static void testAdd() throws ParseException {
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		StudentBean bean = new StudentBean();
 		
-		s.setFirstName("Apurv");
-		s.setLastName("Jhadav");
-		s.setDob(sdf.parse("2003-03-26"));
-		s.setMobileNo("9088775645");
-		s.setEmail("apurv@gmail.com");
-		s.setCollegeId(5);
-		s.setCollegeName("IPS");
-		s.setCreatedBy("Abhay");
-		s.setModifiedBy("Abhay");
-		s.setCreatedDatetime(new Timestamp(new Date(0).getTime()));
-		s.setModifiedDatetime(new Timestamp(new Date(0).getTime()));
+		bean.setCollegeId(4);
+//		bean.setCollegeName("Medicaps University");
+		bean.setFirstName("Male");
+		bean.setLastName("Jhada");
+		bean.setDateOfBirth(sdf.parse("2002-05-13"));
+		bean.setMobileNo("7573920168");
+		bean.setEmail("male@gmail.com");
+		bean.setCreatedBy("Abhay");
+		bean.setModifiedBy("Abhay");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		
-		model.add(s);
+		model.add(bean);
+	}
+
+	private static void testUpdate() throws ParseException {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		StudentBean bean = new StudentBean();
+		
+		bean.setId(2);
+		bean.setCollegeId(2);
+		bean.setCollegeName("SGSITS");
+		bean.setFirstName("Atul");
+		bean.setLastName("Karma");
+		bean.setDateOfBirth(sdf.parse("2002-06-09"));
+		bean.setMobileNo("9977623167");
+		bean.setEmail("atul@gmail.com");
+		bean.setCreatedBy("Abhay");
+		bean.setModifiedBy("Abhay");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
 		
 	}
-	
-	public static void testDelete() {
 
-		StudentModel model =new StudentModel();
+	private static void testDelete() {
 
-		model.delete(0);
+		model.delete(6);
+	}
+
+	private static void testFindByPk() {
+
+		StudentBean bean = model.findByPk(2);
 		
+		System.out.println(bean.getCollegeId());
+		System.out.println(bean.getCollegeName());
+		System.out.println(bean.getFirstName());
+		System.out.println(bean.getLastName());
+		System.out.println(bean.getDateOfBirth());
+		System.out.println(bean.getMobileNo());
+		System.out.println(bean.getEmail());
+		System.out.println(bean.getCreatedBy());
+		System.out.println(bean.getModifiedBy());
+		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getModifiedDatetime());
+
+	}
+
+	private static void testSearch() {
+
+		StudentBean bean = new StudentBean();
+		
+		List<StudentBean> list = model.search(bean, 1, 5);
+		
+		Iterator<StudentBean> it = list.iterator();
+		
+		while (it.hasNext()) {
+			bean = it.next();
+			
+			System.out.println(bean.getId());
+			System.out.println(bean.getCollegeId());
+			System.out.println(bean.getCollegeName());
+			System.out.println(bean.getFirstName());
+			System.out.println(bean.getLastName());
+			System.out.println(bean.getDateOfBirth());
+			System.out.println(bean.getMobileNo());
+			System.out.println(bean.getEmail());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("------------------");
+			
+			
+		}
 	}
 }

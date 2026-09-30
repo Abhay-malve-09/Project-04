@@ -3,13 +3,13 @@ package in.co.rays.proj4.bean;
 import java.sql.ResultSet;
 
 public class CollegeBean extends BaseBean {
-
+	
 	private String name;
 	private String address;
 	private String state;
 	private String city;
-	private String phone_no;
-	
+	private String phoneNo;
+
 	public String getName() {
 		return name;
 	}
@@ -42,36 +42,35 @@ public class CollegeBean extends BaseBean {
 		this.city = city;
 	}
 
-	public String getPhone_no() {
-		return phone_no;
+	public String getPhoneNo() {
+		return phoneNo;
 	}
 
-	public void setPhone_no(String phone_no) {
-		this.phone_no = phone_no;
-	}
-	
-	@Override
-	public void setResultset(ResultSet rs) {
-		
-		super.setResultset(rs);
-		
-		try {
-			
-			this.setName(rs.getString("name"));
-			this.setAddress(rs.getString("address"));
-			this.setState(rs.getString("state"));
-			this.setCity(rs.getString("city"));
-			this.setPhone_no(rs.getString("phone_no"));
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
 	@Override
 	public String getValue() {
-		return name;
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public void setResultSet(ResultSet rs) {
+
+		try {
+			setName(rs.getString("name"));
+			setAddress(rs.getString("address"));
+			setState(rs.getString("state"));
+			setCity(rs.getString("city"));
+			setPhoneNo(rs.getString("phone_no"));
+			
+		} catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		super.setResultSet(rs);
 	}
 
 }

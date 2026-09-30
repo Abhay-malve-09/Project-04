@@ -1,35 +1,14 @@
 package in.co.rays.proj4.bean;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.ResultSet;
 
 public abstract class BaseBean implements DropdownListBean {
 
-	/**
-	 * Non Business primary key इसमें नॉन बिज़नेस के स्टोर की जाती है
-	 */
 	protected long id;
-
-	/**
-	 * Contains USER ID who created this database record. इसमें रिकॉर्ड क्रिएट करने
-	 * वाले यूजर का ID स्टोर किया जाता है
-	 */
 	protected String createdBy;
-
-	/**
-	 * Contains USER ID who modified this database record
-	 */
 	protected String modifiedBy;
-
-	/**
-	 * Contains Created Timestamp of database record
-	 */
-	protected Timestamp createdDatetime;
-
-	/**
-	 * Contains Modified Timestamp of database record
-	 */
+	protected Timestamp createDatetime;
 	protected Timestamp modifiedDatetime;
 
 	public long getId() {
@@ -56,12 +35,12 @@ public abstract class BaseBean implements DropdownListBean {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Timestamp getCreatedDatetime() {
-		return createdDatetime;
+	public Timestamp getCreateDatetime() {
+		return createDatetime;
 	}
 
-	public void setCreatedDatetime(Timestamp createdDatetime) {
-		this.createdDatetime = createdDatetime;
+	public void setCreateDatetime(Timestamp createDatetime) {
+		this.createDatetime = createDatetime;
 	}
 
 	public Timestamp getModifiedDatetime() {
@@ -72,21 +51,26 @@ public abstract class BaseBean implements DropdownListBean {
 		this.modifiedDatetime = modifiedDatetime;
 	}
 
-	public void setResultset(ResultSet rs) {
-		try {
-			this.setId(rs.getLong("ID"));
-			this.setCreatedBy(rs.getString("CREATED_BY"));
-			this.setModifiedBy(rs.getString("MODIFIED_BY"));
-			this.setCreatedDatetime(rs.getTimestamp("CREATED_DATETIME"));
-			this.setModifiedDatetime(rs.getTimestamp("MODIFIED_DATETIME"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public String getKey() {
-		return id+"";
+		
+		return id + "";
+	}
+
+	public void setResultSet(ResultSet rs) {
+		
+		try {
+			
+			setId(rs.getLong("id"));
+			setCreatedBy(rs.getString("created_by"));
+			setModifiedBy(rs.getString("modified_by"));
+			setCreateDatetime(rs.getTimestamp("created_datetime"));
+			setModifiedDatetime(rs.getTimestamp("modified_datetime"));
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
 	}
 
 }

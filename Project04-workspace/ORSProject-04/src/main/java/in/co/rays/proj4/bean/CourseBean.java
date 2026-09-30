@@ -1,12 +1,13 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CourseBean extends BaseBean {
 
 	private String name;
-	private String duration;
 	private String description;
+	private String duration;
 
 	public String getName() {
 		return name;
@@ -14,14 +15,6 @@ public class CourseBean extends BaseBean {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
 	}
 
 	public String getDescription() {
@@ -32,24 +25,32 @@ public class CourseBean extends BaseBean {
 		this.description = description;
 	}
 
-	@Override
-	public void setResultset(ResultSet rs) {
+	public String getDuration() {
+		return duration;
+	}
 
-		super.setResultset(rs);
-
-		try {
-			this.setName(rs.getString("name"));
-			this.setDuration(rs.getString("duration"));
-			this.setDescription(rs.getString("description"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
 	@Override
 	public String getValue() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void setResultSet(ResultSet rs) {
 
+		try {
+			setName(rs.getString("name"));
+			setDescription(rs.getString("description"));
+			setDuration(rs.getString("duration"));
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		super.setResultSet(rs);
+	}
 }

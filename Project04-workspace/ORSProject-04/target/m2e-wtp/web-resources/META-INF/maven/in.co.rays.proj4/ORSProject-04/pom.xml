@@ -6,7 +6,8 @@
 	<artifactId>ORSProject-04</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ORSProject04 Maven Webapp</name>
+	<name>ORSProject-04 Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
 	<!-- ===== Properties ===== -->
 	<properties>
@@ -15,10 +16,8 @@
 		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 
-	<!-- ===== Dependencies ===== -->
 	<dependencies>
 
-		<!-- Servlet API (provided by Tomcat 11 at runtime) -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -26,7 +25,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- JSP API - required to implement custom tag library -->
 		<dependency>
 			<groupId>jakarta.servlet.jsp</groupId>
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -34,57 +32,60 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Jakarta Mail - for email functionality -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>jakarta.mail</artifactId>
 			<version>2.0.1</version>
 		</dependency>
 
-		<!-- C3P0 - JDBC connection pooling -->
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
 		</dependency>
 
-		<!-- Log4j 2 - logging with Log4j 1.x API bridge -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.20.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.20.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-1.2-api</artifactId>
 			<version>2.20.0</version>
 		</dependency>
 
-		<!-- MySQL JDBC driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.30</version>
 		</dependency>
 
-		<!-- Jackson - JSON serialization for REST endpoints -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.15.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.15.2</version>
 		</dependency>
 
-		<!-- JUnit 5 -->
+		<!--<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.20.6</version>
+		</dependency>-->
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
@@ -92,7 +93,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Mockito core (includes inline/static mocking) -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -100,7 +100,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Mockito JUnit 5 extension -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
@@ -109,8 +108,7 @@
 		</dependency>
 
 	</dependencies>
-
-	<build>
+		<build>
 		<finalName>ORSProject-04</finalName>
 
 		<plugins>

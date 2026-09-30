@@ -2,59 +2,107 @@ package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.model.CollegeModel;
-import in.co.rays.proj4.model.FacultyModel;
 
 public class TestCollegeModel {
 
-	public static void main(String[] args) throws Exception {
-
+	public static CollegeModel model =  new CollegeModel();
+	
+	public static void main(String[] args) {
+		
 //		testAdd();
-		testDelete();
-//		testUpdate();
-
+		testUpdate();
+//		testDelete();
+//		testFindByPk();
+//		testSearch();
 	}
 
-	public static void testAdd() {
+	private static void testAdd() {
+		
+		CollegeBean bean = new CollegeBean();
+		
+		bean.setName("SGSITS");
+		bean.setAddress("23, Park Road (Sir M. Visvesvaraya Marg), Vallabh Nagar");
+		bean.setState("Madhya Pradesh");
+		bean.setCity("Indore");
+		bean.setPhoneNo("07312570000");
+		bean.setCreatedBy("Abhay");
+		bean.setModifiedBy("Abhay");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.add(bean);
+	}
+	
+	private static void testUpdate() {
+		
+		CollegeBean bean = new CollegeBean();
+		
+		bean.setId(2);
+		bean.setName("DAVV");
+		bean.setAddress("IT Park");
+		bean.setState("Madhya Pradesh");
+		bean.setCity("Indore");
+		bean.setPhoneNo("07312570000");
+		bean.setCreatedBy("Abhay");
+		bean.setModifiedBy("Abhay");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+	
+		model.update(bean);
+	}
+	
+	private static void testDelete() {
+		
+		model.delete(6);
+	}
+	
+	private static void testFindByPk() {
 
-		CollegeBean c = new CollegeBean();
-		CollegeModel model = new CollegeModel();
-
-		c.setName("IPS");
-		c.setAddress("Rajendra Nagar, Indore");
-		c.setState("Madhya Pradesh");
-		c.setCity("Indore");
-		c.setPhone_no("9976542312");
-		c.setCreatedBy("Abhay");
-		c.setModifiedBy("Abhay");
-		c.setCreatedDatetime(new Timestamp(new Date(0).getTime()));
-		c.setModifiedDatetime(new Timestamp(new Date(0).getTime()));
-
-		model.add(c);
+		CollegeBean bean = model.findByPk(2);
+		
+		System.out.println(bean.getName());
+		System.out.println(bean.getAddress());
+		System.out.println(bean.getState());
+		System.out.println(bean.getCity());
+		System.out.println(bean.getPhoneNo());
+		System.out.println(bean.getCreatedBy());
+		System.out.println(bean.getModifiedBy());
+		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getModifiedDatetime());
+		
+		
 	}
 
-	public static void testUpdate() {
+	private static void testSearch() {
 
-		CollegeBean c = new CollegeBean();
-		CollegeModel model = new CollegeModel();
-
-		c.setName("Medicaps");
-		c.setAddress("Rau, Indore");
-		c.setState("Madhya Pradesh");
-		c.setCity("Indore");
-		c.setPhone_no("9977226267");
-		c.setModifiedBy("Abhishekh");
-		c.setModifiedDatetime(new Timestamp(new Date(0).getTime()));
-		c.setId(1);
-
-		model.update(c);
+		CollegeBean bean = new CollegeBean();
+		
+		bean.setName("DAVV");;
+		
+		List<CollegeBean> list = model.search(bean, 1, 5);
+		
+		Iterator<CollegeBean> it = list.iterator();
+		
+		while (it.hasNext()) {
+			bean = it.next();
+			
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getAddress());
+			System.out.println(bean.getState());
+			System.out.println(bean.getCity());
+			System.out.println(bean.getPhoneNo());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("----------------------");
+		}
 	}
-	public static void testDelete() { 
 
-		CollegeModel model = new CollegeModel();
-
-		model.delete(1);
-	}
 }

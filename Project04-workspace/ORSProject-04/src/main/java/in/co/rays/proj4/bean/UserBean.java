@@ -1,14 +1,11 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class UserBean extends BaseBean {
 
-	public static final String ACTIVE = "Active";
-	public static final String INACTIVE = "Inactive";
-	
 	private String firstName;
 	private String lastName;
 	private String login;
@@ -18,15 +15,11 @@ public class UserBean extends BaseBean {
 	private long roleId;
 	private int unsuccessfulLogin;
 	private String gender;
-	private Timestamp lastLogin;
-	private String lock = INACTIVE;
+	private Date lastLogin;
+	private String userLock;
 	private String registeredIp;
 	private String lastLoginIp;
-	private String confirmPassword;
 
-	
-
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -99,20 +92,20 @@ public class UserBean extends BaseBean {
 		this.gender = gender;
 	}
 
-	public Timestamp getLastLogin() {
+	public Date getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(Timestamp lastLogin) {
+	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
-	public String getLock() {
-		return lock;
+	public String getUserLock() {
+		return userLock;
 	}
 
-	public void setLock(String lock) {
-		this.lock = lock;
+	public void setUserLock(String userLock) {
+		this.userLock = userLock;
 	}
 
 	public String getRegisteredIp() {
@@ -131,49 +124,36 @@ public class UserBean extends BaseBean {
 		this.lastLoginIp = lastLoginIp;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
-	public static String getActive() {
-		return ACTIVE;
-	}
-
-	public static String getInactive() {
-		return INACTIVE;
-	}
-
-	@Override
-	public void setResultset(ResultSet rs) {
-
-		try {
-			super.setResultset(rs);
-			this.setFirstName(rs.getString("FIRST_NAME"));
-			this.setLastName(rs.getString("LAST_NAME"));
-			this.setLogin(rs.getString("LOGIN"));
-			this.setPassword(rs.getString("PASSWORD"));
-			this.setDob(rs.getDate("DOB"));
-			this.setMobileNo(rs.getString("MOBILE_NO"));
-			this.setRoleId(rs.getLong("ROLE_ID"));
-			this.setUnsuccessfulLogin(rs.getInt("UNSUCCESSFUL_LOGIN"));
-			this.setGender(rs.getString("GENDER"));
-			this.setLastLogin(rs.getTimestamp("LAST_LOGIN"));
-			this.setLock(rs.getString("USER_LOCK"));
-			this.setRegisteredIp(rs.getString("REGISTERED_IP"));
-			this.setLastLoginIp(rs.getString("LAST_LOGIN_IP"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public String getValue() {
+		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void setResultSet(ResultSet rs) {
+
+     try {
+
+			setFirstName(rs.getString("first_name"));
+			setLastName(rs.getString("last_name"));
+			setLogin(rs.getString("login"));
+			setPassword(rs.getString("password"));
+			setDob(rs.getTimestamp("dob"));
+			setMobileNo(rs.getString("mobile_no"));
+			setRoleId(rs.getLong("role_id"));
+			setUnsuccessfulLogin(rs.getInt("unsuccessful_login"));
+			setGender(rs.getString("gender"));
+			setLastLogin(rs.getTimestamp("last_login"));
+			setUserLock(rs.getString("user_lock"));
+			setRegisteredIp(rs.getString("registered_ip"));
+			setLastLoginIp(rs.getString("last_login_ip"));
+
+	} catch (SQLException e) {
+
+		e.printStackTrace();
+	}
+		super.setResultSet(rs);
 	}
 
 }

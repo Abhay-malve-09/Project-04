@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.CollegeBean;
-import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -14,175 +13,192 @@ public class StudentModel extends BaseModel<StudentBean> {
 
 	@Override
 	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
-		
-		Connection c = null;
-		
-		StudentBean existBean = findByEmailId(bean.getEmail());
 
+		Connection conn = null;
+		
+		StudentBean existBean = findByEmail(bean.getEmail());
+		
 		if (existBean != null) {
-			throw new DuplicateRecordException("student already exist");
+			
+			throw new DuplicateRecordException("email already exist");
 		}
-
-		CollegeModel cmodel = new CollegeModel();
-		CollegeBean cbean = cmodel.findByPK(bean.getCollegeId());
-//		if (cbean != null) {
-//			bean.setCollege_name(cbean.getName());
-//		}
-
-		bean.setCollegeName(cbean.getName());
-
+		
+		//Foregin key concept
+		CollegeModel smodel = new CollegeModel();
+		
+		CollegeBean sbean = smodel.findByPk(bean.getCollegeId());
+		
+		System.out.println("college name = " + sbean.getName());
+		
+		int pk = 0;
 		
 		try {
 			
-			c = JDBCDataSource.getConnection();
-			c.setAutoCommit(false);
+			pk = nextPk();
 			
-			PreparedStatement p = c.prepareStatement("insert into " + getTable() + " values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		
-			p.setInt(1, nextPK());
-			p.setString(2, bean.getFirstName());
-			p.setString(3, bean.getLastName());
-			p.setDate(4, new java.sql.Date(bean.getDob().getTime()));
-			p.setString(6, bean.getMobileNo());
-			p.setString(7, bean.getEmail());
-			p.setLong(8, bean.getCollegeId());
-			p.setString(9, bean.getCollegeName());
-			p.setString(10, bean.getCreatedBy());
-			p.setString(11, bean.getModifiedBy());
-			p.setTimestamp(12, bean.getCreatedDatetime());
-			p.setTimestamp(13, bean.getModifiedDatetime());
-
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
 			
-			p.executeUpdate();
-			c.commit();
+			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " value(?,?,?,?,?,?,?,?,?,?,?,?)");
 			
+			pstmt.setLong(1, pk);
+			pstmt.setLong(2, bean.getCollegeId());
+			
+			pstmt.setString(3, sbean.getName());
+			pstmt.setString(4, bean.getFirstName());
+			pstmt.setString(5, bean.getLastName());
+			pstmt.setDate(6, new java.sql.Date(bean.getDateOfBirth().getTime()));
+			pstmt.setString(7, bean.getMobileNo());
+			pstmt.setString(8, bean.getEmail());
+			pstmt.setString(9, bean.getCreatedBy());
+			pstmt.setString(10, bean.getModifiedBy());
+			pstmt.setTimestamp(11, bean.getCreateDatetime());
+			pstmt.setTimestamp(12, bean.getModifiedDatetime());
+			
+			pstmt.executeUpdate();
+			conn.commit();
+			System.out.println("record inserted successfully");
 			
 		} catch (Exception e) {
-           e.printStackTrace();
-           JDBCDataSource.trnRollBack(c);
-           
+
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(conn);
 		} finally {
 			
-			JDBCDataSource.closeConnection(c);
+			JDBCDataSource.closeConnection(conn);
 		}
 		
-		return bean.getId();
+		return pk;
 	}
 
 	@Override
 	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
- 
-		Connection conn = null;
-		
-		StudentBean existBean = findByEmailId(bean.getEmail());
 
+		Connection c = null;
+		
+		StudentBean existBean = findByEmail(bean.getEmail());
+		
 		if (existBean != null && existBean.getId() != bean.getId()) {
-			throw new DuplicateRecordException("student already exist");
+			
+			throw new DuplicateRecordException("email already exist");
 		}
-
-		CollegeModel cmodel = new CollegeModel();
-		CollegeBean cbean = cmodel.findByPK(bean.getCollegeId());
-//		if (cbean != null) {
-//			bean.setCollege_name(cbean.getName());
-//		}
-//		
 		
-		bean.setCollegeName(cbean.getName());
+		//Foregin key concept
+		StudentModel smodel = new StudentModel();
+		
+		StudentBean sbean = smodel.findByPk(bean.getCollegeId());
+		System.out.println("college name = " + sbean.getCollegeName());
 		
 		try {
-
-			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false);
-			PreparedStatement p = conn.prepareStatement("update " + getTable() + " set first_name=?, last_name=?, dob=?, gender=?, mobile_no=?, email=?, college_id=?, college_name=?, modified_by=?, modified_datetime=? where id=?");
 			
-			p.setString(1, bean.getFirstName());
-			p.setString(2, bean.getLastName());
-			p.setDate(3, new java.sql.Date(bean.getDob().getTime()));
-			p.setString(5, bean.getMobileNo());
-			p.setString(6, bean.getEmail());
-			p.setLong(7, bean.getCollegeId());
-			p.setString(8, bean.getCollegeName());
-			p.setString(9, bean.getModifiedBy());
-			p.setTimestamp(10, bean.getModifiedDatetime());
-			p.setLong(11, bean.getId());
-
-			p.executeUpdate();
-			conn.commit();
-
+			c = JDBCDataSource.getConnection();
+			 c.setAutoCommit(false);
+			 
+			PreparedStatement pstmt =  c.prepareStatement("update " + getTable() + " set college_id = ?, college_name = ?, first_name = ?, last_name = ?, date_of_birth = ?, mobile_no = ?, email = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+			 
+			pstmt.setLong(1, bean.getCollegeId());
+			pstmt.setString(2, sbean.getCollegeName());
+			pstmt.setString(3, bean.getFirstName());
+			pstmt.setString(4, bean.getLastName());
+			pstmt.setDate(5, new java.sql.Date(bean.getDateOfBirth().getTime()));
+			pstmt.setString(6, bean.getMobileNo());
+			pstmt.setString(7, bean.getEmail());
+			pstmt.setString(8, bean.getCreatedBy());
+			pstmt.setString(9, bean.getModifiedBy());
+			pstmt.setTimestamp(10, bean.getCreateDatetime());
+			pstmt.setTimestamp(11, bean.getModifiedDatetime());
+			pstmt.setLong(12, bean.getId());
+			
+			pstmt.executeUpdate();
+			c.commit();
+			
+			System.out.println("record updated successfully");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			JDBCDataSource.trnRollBack(conn);
+			JDBCDataSource.trnRollBack(c);
 		} finally {
-			JDBCDataSource.closeConnection(conn);
+			JDBCDataSource.closeConnection(c);
 		}
-
 	}
-	
-	public StudentBean findByEmailId(String email) throws ApplicationException {
-		StudentBean bean = findByUniqueColumn("EMAIL", email);
-		return bean;
-	}
-
 
 	@Override
 	public String getWhereClause(StudentBean bean) {
 
-		StringBuffer sql = new StringBuffer("");
-
-		if (bean != null) {
-
-			if (bean.getId() > 0) {
-				sql.append(" and id = " + bean.getId());
-			}
-
-			if (bean.getFirstName() != null
-					&& bean.getFirstName().length() > 0) {
-				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
-			}
-
-			if (bean.getLastName() != null
-					&& bean.getLastName().length() > 0) {
-				sql.append(" and last_name like '" + bean.getLastName() + "%'");
-			}
-
-			if (bean.getDob() != null
-					&& bean.getDob().getTime() > 0) {
-				sql.append(" and dob like '"
-						+ new java.sql.Date(bean.getDob().getTime()) + "%'");
-			}
-
-			if (bean.getMobileNo() != null
-					&& bean.getMobileNo().length() > 0) {
-				sql.append(" and mobile_no like '" + bean.getMobileNo() + "%'");
-			}
-
-			if (bean.getEmail() != null
-					&& bean.getEmail().length() > 0) {
-				sql.append(" and email like '" + bean.getEmail() + "%'");
-			}
-
-			if (bean.getCollegeId() > 0) {
-				sql.append(" and college_id = " + bean.getCollegeId());
-			}
-
-			if (bean.getCollegeName() != null
-					&& bean.getCollegeName().length() > 0) {
-				sql.append(" and college_name like '" + bean.getCollegeName() + "%'");
-			}
+	 StringBuffer sql = new StringBuffer("");
+	 
+	 if (bean != null) {
+		 if (bean.getId() > 0) {
+			 sql.append(" and id = " + bean.getId());
+			 
+		 }
+		 
+		 if (bean.getCollegeId() > 0) {
+			 sql.append(" and CollegeId = " + bean.getCollegeId());
+		 }
+		 
+		 if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
+			 sql.append(" and collegeName like '" + bean.getCollegeName() + "%'");
+		 }
+		 
+		 if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+			 sql.append(" and firstName like '" + bean.getFirstName() + "%'");
+		 }
+		 
+		 if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+			 sql.append(" and lastName like '" + bean.getLastName() + "%'");
+		 }
+		 
+		 if (bean.getDateOfBirth() != null) {
+			 sql.append(" and dateOfBirth like '" + bean.getDateOfBirth() + "%'");
+		 }
+		 
+		 if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
+			 sql.append(" and mobileNo like '" + bean.getMobileNo() + "%'");
+		 }
+		 
+		 if (bean.getEmail() != null && bean.getEmail().length() > 0) {
+			 sql.append(" and email like '" + bean.getEmail() + "%'");
+		 }
+		 
+		if (bean.getCreatedBy() != null && bean.getCreatedBy().length() > 0) {
+			sql.append(" and createdBy like '" + bean.getCreatedBy() + "%'");
 		}
 
+		if (bean.getModifiedBy() != null && bean.getModifiedBy().length() > 0) {
+			sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
+		}
+
+		if (bean.getCreateDatetime() != null) {
+			sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+		}
+
+		if (bean.getModifiedDatetime() != null) {
+			sql.append(" and modifiedDateTime like '" + bean.getModifiedDatetime() + "%");
+		}
+		
+	 }
 		return sql.toString();
 	}
-
+	
+	public StudentBean findByEmail(String email) {
+		
+		StudentBean bean = findByUniqueColumn("email", email);
+		
+		return bean;
+	}
 
 	@Override
 	public String getTable() {
+
 		return "st_student";
 	}
 
 	@Override
 	public StudentBean getBean() {
+
 		return new StudentBean();
 	}
 
+	
 }

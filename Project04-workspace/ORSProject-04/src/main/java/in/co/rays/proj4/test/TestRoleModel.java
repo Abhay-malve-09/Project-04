@@ -1,85 +1,105 @@
 package in.co.rays.proj4.test;
 
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.sql.Timestamp;
 
 import in.co.rays.proj4.bean.RoleBean;
-import in.co.rays.proj4.model.MarksheetModel;
 import in.co.rays.proj4.model.RoleModel;
+
+//1 = admin
+//2 = student
+//3 = faculty
+//4 = college
+//5 = KIOSK
 
 public class TestRoleModel {
 
-	public static void main(String[] args) throws Exception {
-
+	public static RoleModel model = new RoleModel();
+	
+	public static void main(String[] args) {
+		
 //		testAdd();
+//		testUpdate();
 //		testDelete();
-		testUpdate();
 //		testFindByPk();
-//		testFindByName();
+		testSearch();
 	}
 
-	public static void testAdd() {
-		RoleBean r = new RoleBean();
-		RoleModel model = new RoleModel();
-		// student,college, faculty, KIOSK,
 
-		r.setName("KIOSK");
-		r.setCreatedBy("Abhay");
-		r.setDescription("adding KIOSK role");
-		r.setModifiedBy("Abhay");
-		r.setCreatedDatetime(new Timestamp(new Date().getTime()));
-		r.setModifiedDatetime(new Timestamp(new Date().getTime()));
-
-		model.add(r);
-
-	}
-
-	public static void testUpdate() {
-		RoleBean r = new RoleBean();
-		RoleModel model = new RoleModel();
-
-		r.setName("Admin");
-		r.setDescription("adding Admin role");
-		r.setModifiedBy("Ashish");
-		r.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		r.setId(2);
-		model.update(r);
-
-	}
-
-	public static void testDelete() {
-
-		RoleModel model = new RoleModel();
-
-		model.delete(5);
-
-	}
-	
-	public static void testFindByPk() {
-		   
-		RoleModel model = new RoleModel();
-		
+	private static void testAdd() {
 		RoleBean bean = new RoleBean();
 		
-		bean = model.findByPK(2);
+		bean.setName("KIOSK");
+		bean.setDescription("KIOSK Role");
+		bean.setCreatedBy("root");
+		bean.setModifiedBy("root");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.add(bean);
+		
+	}
+	
+	private static void testDelete() {
+		
+		model.delete(7);
+	}
+	
+	private static void testUpdate() {
+
+		RoleBean bean =new RoleBean();
+		
+		bean.setId(1);
+		bean.setName("Admin");
+		bean.setDescription("Admin role");
+		bean.setCreatedBy("root");
+		bean.setModifiedBy("root");
+		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
+	}
+	
+
+	private static void testFindByPk() {
+
+		RoleBean bean = model.findByPk(2); //rolemodel ke through call huin he
 		
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getDescription());
+		System.out.println(bean.getCreatedBy());
+		System.out.println(bean.getModifiedBy());
+		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getModifiedDatetime());
 		
 	}
 	
-	public static void testFindByName() {
+	private static void testSearch() {
 		
-		RoleModel model = new RoleModel();
+		RoleBean bean =  new RoleBean();
 		
-		RoleBean bean = new RoleBean();
+//		bean.setName("student");
 		
-		bean = model.findByName("Admin");
+		List<RoleBean> list = model.search(bean, 1, 5);
 		
-		System.out.println(bean.getId());
-		System.out.println(bean.getName());
-		System.out.println(bean.getDescription());
+		Iterator<RoleBean> it = list.iterator();
 		
+		while (it.hasNext()) {
+			bean = it.next();
+			
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("----------------------");
+		}
 	}
+
 }

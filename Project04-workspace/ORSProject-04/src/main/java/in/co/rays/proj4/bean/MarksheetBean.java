@@ -1,31 +1,31 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MarksheetBean extends BaseBean {
 
-	 
-	private String roll_no;
-	private long student_id;
+	private String rollNo;
+	private long studentId;
 	private String name;
-	private  int physics;
-	private  int chemistry;
-	private  int maths;
-	
-	public String getRoll_no() {
-		return roll_no;
+	private int physics;
+	private int chemistry;
+	private int maths;
+
+	public String getRollNo() {
+		return rollNo;
 	}
 
-	public void setRoll_no(String roll_no) {
-		this.roll_no = roll_no;
+	public void setRollNo(String rollNo) {
+		this.rollNo = rollNo;
 	}
 
-	public long getStudent_id() {
-		return student_id;
+	public long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent_id(long student_id) {
-		this.student_id = student_id;
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
 
 	public String getName() {
@@ -59,28 +59,30 @@ public class MarksheetBean extends BaseBean {
 	public void setMaths(int maths) {
 		this.maths = maths;
 	}
-	
-	@Override
-	public void setResultset(ResultSet rs) {
-
-		super.setResultset(rs);
-		
-		try {
-			this.setRoll_no(rs.getString("roll_no"));
-			this.setStudent_id(rs.getLong("student_id"));
-			this.setName(rs.getString("name"));
-			this.setPhysics(rs.getInt("physics"));
-			this.setChemistry(rs.getInt("chemistry"));
-			this.setMaths(rs.getInt("maths"));
-			
-		} catch (Exception e) {
-          e.printStackTrace();
-		}
-	}
 
 	@Override
 	public String getValue() {
+		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void setResultSet(ResultSet rs) {
+
+		try {
+			setRollNo(rs.getString("roll_no"));
+			setStudentId(rs.getLong("student_id"));
+			setName(rs.getString("name"));
+			setPhysics(rs.getInt("physics"));
+			setChemistry(rs.getInt("chemistry"));
+			setMaths(rs.getInt("maths"));
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		super.setResultSet(rs);
 	}
 
 }
