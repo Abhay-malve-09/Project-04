@@ -1,7 +1,7 @@
-<%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
+<%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,54 +10,49 @@
 </head>
 <body>
 
-	<%
-	UserBean userBean = (UserBean) session.getAttribute("user");
-	String roleName = (String) session.getAttribute("role");
-	boolean isLogin = userBean != null;
-	String welcomeMsg = "Hi, ";
-	%>
+<%
 
-	<table>
-		<tr style="width: 100%;">
-			<td style="width: 98%;">
-				<%
-				if (isLogin) {
-				%>
-				<div>
-					<h3><b><%=welcomeMsg + userBean.getFirstName() + "(" + roleName + ")"%></b></h3>
-					<a href="<%=ORSView.ROLE_CTL%>"><b>Add Role</b></a> | 
-					<a href="<%=ORSView.ROLE_LIST_CTL%>"><b>Role List</b></a> | 
-					<a href="<%=ORSView.USER_CTL%>"><b>Add User</b></a> | 
-					<a href="<%=ORSView.USER_LIST_CTL%>"><b>User List</b></a> |
-					<a href="<%=ORSView.STUDENT_CTL%>"><b>Add Student</b></a> | 
-					<a href="<%=ORSView.STUDENT_LIST_CTL%>"><b>Student List</b></a> |
-					<a href="LoginCtl?operation=logout"><b>Logout</b> </a>
-				</div> <%
-                }
-                %> 
- 
-                <%
-                if (!isLogin) {
-                %>
-				<div>
-					<h3>Hi, Guest</h3>
-					<a href="<%=ORSView.WELCOME_CTL%>"><b>Welcome</b></a> | 
-					<a href="<%=ORSView.LOGIN_CTL%>"><b>Login</b></a> |
-					<a href="<%=ORSView.USER_REGISTRATION_CTL%>"><b>SignUp</b></a>
-				</div> 
-				<%
-                }
-                %>
-			</td>
-			<td style="width: 2%;">
-				<div>
-					<img src="<%=ORSView.APP_CONTEXT%>/img/customLogo.jpg" width="175"
-						height="50">
-				</div>
-			</td>
-		</tr>
-	</table>
-	<hr>
+UserBean user = (UserBean) session.getAttribute("user");
+String role = (String) session.getAttribute("role");
+boolean isLogin = user != null;
+String welcomeMsg = "Hii, ";
+
+%>
+
+<%
+
+if (isLogin) {
+	
+%>
+
+<h2><%=welcomeMsg + user.getFirstName() + "(" + role + ")"%></h2>
+
+<a href="<%=ORSView.ROLE_CTL%>">Add Role</a> |
+<a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> |
+<a href="<%=ORSView.USER_CTL%>">Add User</a> |
+<a href="<%=ORSView.USER_LIST_CTL%>">USer List</a> |
+<a href="<%=ORSView.LOGIN_CTL + "?operation=logout"%>">Logout</a> |
+
+<%
+
+} else {
+
+%>
+
+<h2>Hii, Guest</h2>
+<a href="<%=ORSView.LOGIN_CTL%>">Login</a> |
+<a href="<%=ORSView.USER_REGISTRATION_CTL%>">SignUp</a> |
+
+<%
+
+}
+
+%>
+
+<a href="<%=ORSView.WELCOME_CTL %>">Welcome</a>
+
+
+<hr>
 
 </body>
 </html>

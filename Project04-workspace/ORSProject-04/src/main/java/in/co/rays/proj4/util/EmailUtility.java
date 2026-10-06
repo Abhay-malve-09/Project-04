@@ -11,12 +11,8 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-
-
-
 public class EmailUtility {
 
-	
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.System");
 	private static final String SMTP_HOST_NAME = rb.getString("smtp.server");
 	private static final String SMTP_PORT = rb.getString("smtp.port");

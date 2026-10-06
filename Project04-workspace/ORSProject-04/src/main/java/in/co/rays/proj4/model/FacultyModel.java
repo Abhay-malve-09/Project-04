@@ -54,7 +54,7 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 			pstmt.setDate(10, new java.sql.Date(bean.getDateOfBirth().getTime()));
 			pstmt.setString(11, bean.getCreatedBy());
 			pstmt.setString(12, bean.getModifiedBy());
-			pstmt.setTimestamp(13, bean.getCreateDatetime());
+			pstmt.setTimestamp(13, bean.getCreatedDatetime());
 			pstmt.setTimestamp(14,  bean.getModifiedDatetime());
 			
 			pstmt.executeUpdate();
@@ -111,7 +111,7 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 			pstmt.setDate(9, new java.sql.Date(bean.getDateOfBirth().getTime()));
 			pstmt.setString(10, bean.getCreatedBy());
 			pstmt.setString(11, bean.getModifiedBy());
-			pstmt.setTimestamp(12, bean.getCreateDatetime());
+			pstmt.setTimestamp(12, bean.getCreatedDatetime());
 			pstmt.setTimestamp(13,  bean.getModifiedDatetime());
 			pstmt.setLong(14, bean.getId());
 			
@@ -182,8 +182,8 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 				sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
 			}
 			
-			if (bean.getCreateDatetime() != null) {
-				sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+			if (bean.getCreatedDatetime() != null) {
+				sql.append(" and createdDateTime like '" + bean.getCreatedDatetime() + "%'");
 			}
 			
 			if (bean.getModifiedDatetime() != null) {

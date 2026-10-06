@@ -18,8 +18,7 @@ public class HTMLUtility {
 
 		boolean select = true;
 		if (select) {
-//			sb.append("<option selected value=''>--------------Select---------------</option>");
-			sb.append("<option selected value=''>-----------Select------------</option>");
+			sb.append("<option selected value=''>------------Select-------------</option>");
 		}
 
 		for (String key : keys) {
@@ -46,7 +45,7 @@ public class HTMLUtility {
 
 		boolean select = true;
 		if (select) {
-			sb.append("<option selected value=''>--------------Select---------------</option>");
+			sb.append("<option selected value=''>------------Select-------------</option>");
 		}
 
 		for (DropdownListBean obj : dd) {
@@ -76,5 +75,5 @@ public class HTMLUtility {
 		System.out.println(getList("gender", "male", map));
 
 	}
-}
 
+}

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// DataUtility class format dATA INTO CORRECT FORMAT OR INTO ANOTHER FORMAT
+// DataUtility class format data into correct format or into another format
 public class DataUtility {
 
 	public static final String APP_DATE_FORMAT = "yyyy-MM-dd";

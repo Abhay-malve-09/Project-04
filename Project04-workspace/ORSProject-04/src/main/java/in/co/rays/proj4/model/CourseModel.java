@@ -40,7 +40,7 @@ public class CourseModel extends BaseModel<CourseBean> {
 			pstmt.setString(4, bean.getDuration());
 			pstmt.setString(5, bean.getCreatedBy());
 			pstmt.setString(6, bean.getModifiedBy());
-			pstmt.setTimestamp(7, bean.getCreateDatetime());
+			pstmt.setTimestamp(7, bean.getCreatedDatetime());
 			pstmt.setTimestamp(8, bean.getModifiedDatetime());
 			
 			pstmt.executeUpdate();
@@ -84,7 +84,7 @@ public class CourseModel extends BaseModel<CourseBean> {
 			pstmt.setString(3, bean.getDuration());
 			pstmt.setString(4, bean.getCreatedBy());
 			pstmt.setString(5, bean.getModifiedBy());
-			pstmt.setTimestamp(6, bean.getCreateDatetime());
+			pstmt.setTimestamp(6, bean.getCreatedDatetime());
 			pstmt.setTimestamp(7, bean.getModifiedDatetime());
 			pstmt.setLong(8, bean.getId());
 			
@@ -130,8 +130,8 @@ public class CourseModel extends BaseModel<CourseBean> {
 				sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
 			}
 			
-			if (bean.getCreateDatetime() != null) {
-				sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+			if (bean.getCreatedDatetime() != null) {
+				sql.append(" and createdDateTime like '" + bean.getCreatedDatetime() + "%'");
 			}
 			
 			if (bean.getModifiedDatetime() != null) {

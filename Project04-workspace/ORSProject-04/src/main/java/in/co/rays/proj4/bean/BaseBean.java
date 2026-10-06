@@ -8,7 +8,7 @@ public abstract class BaseBean implements DropdownListBean {
 	protected long id;
 	protected String createdBy;
 	protected String modifiedBy;
-	protected Timestamp createDatetime;
+	protected Timestamp createdDatetime;
 	protected Timestamp modifiedDatetime;
 
 	public long getId() {
@@ -35,12 +35,12 @@ public abstract class BaseBean implements DropdownListBean {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Timestamp getCreateDatetime() {
-		return createDatetime;
+	public Timestamp getCreatedDatetime() {
+		return createdDatetime;
 	}
 
-	public void setCreateDatetime(Timestamp createDatetime) {
-		this.createDatetime = createDatetime;
+	public void setCreatedDatetime(Timestamp createdDatetime) {
+		this.createdDatetime = createdDatetime;
 	}
 
 	public Timestamp getModifiedDatetime() {
@@ -64,7 +64,7 @@ public abstract class BaseBean implements DropdownListBean {
 			setId(rs.getLong("id"));
 			setCreatedBy(rs.getString("created_by"));
 			setModifiedBy(rs.getString("modified_by"));
-			setCreateDatetime(rs.getTimestamp("created_datetime"));
+			setCreatedDatetime(rs.getTimestamp("created_datetime"));
 			setModifiedDatetime(rs.getTimestamp("modified_datetime"));
 		} catch (Exception e) {
 			

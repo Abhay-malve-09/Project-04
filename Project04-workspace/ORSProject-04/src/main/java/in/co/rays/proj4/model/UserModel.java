@@ -46,13 +46,14 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(8, bean.getRoleId());
 			pstmt.setInt(9, bean.getUnsuccessfulLogin());
 			pstmt.setString(10, bean.getGender());
-			pstmt.setDate(11, new java.sql.Date(bean.getLastLogin().getTime()));
+//			pstmt.setDate(11, new java.sql.Date(bean.getLastLogin().getTime()));
+			pstmt.setTimestamp(11, bean.getLastLogin());
 			pstmt.setString(12, bean.getUserLock());
 			pstmt.setString(13, bean.getRegisteredIp());
 			pstmt.setString(14, bean.getLastLoginIp());
 			pstmt.setString(15, bean.getCreatedBy());
 	        pstmt.setString(16, bean.getModifiedBy());
-	        pstmt.setTimestamp(17, bean.getCreateDatetime());
+	        pstmt.setTimestamp(17, bean.getCreatedDatetime());
 	        pstmt.setTimestamp(18, bean.getModifiedDatetime());
            
 			
@@ -101,13 +102,14 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(7, bean.getRoleId());
 			pstmt.setInt(8, bean.getUnsuccessfulLogin());
 			pstmt.setString(9, bean.getGender());
-			pstmt.setDate(10, new java.sql.Date(bean.getLastLogin().getTime()));
+//			pstmt.setDate(10, new java.sql.Date(bean.getLastLogin().getTime()));
+			pstmt.setTimestamp(10, bean.getLastLogin());
 			pstmt.setString(11, bean.getUserLock());
 			pstmt.setString(12, bean.getRegisteredIp());
 			pstmt.setString(13, bean.getLastLoginIp());
 			pstmt.setString(14, bean.getCreatedBy());
 	        pstmt.setString(15, bean.getModifiedBy());
-	        pstmt.setTimestamp(16, bean.getCreateDatetime()); 
+	        pstmt.setTimestamp(16, bean.getCreatedDatetime()); 
 	        pstmt.setTimestamp(17, bean.getModifiedDatetime());
 			pstmt.setLong(18, bean.getId());
 			
@@ -192,8 +194,8 @@ public class UserModel extends BaseModel<UserBean> {
 				sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
 			}
 			
-			if (bean.getCreateDatetime() != null) {
-				sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+			if (bean.getCreatedDatetime() != null) {
+				sql.append(" and createdDateTime like '" + bean.getCreatedDatetime() + "%'");
 			}
 			
 			if (bean.getModifiedDatetime() != null) {

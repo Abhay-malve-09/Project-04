@@ -42,7 +42,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			pstmt.setString(6, bean.getPhoneNo());
 			pstmt.setString(7, bean.getCreatedBy());
 			pstmt.setString(8, bean.getModifiedBy());
-			pstmt.setTimestamp(9, bean.getCreateDatetime());
+			pstmt.setTimestamp(9, bean.getCreatedDatetime());
 			pstmt.setTimestamp(10, bean.getModifiedDatetime());
 			
 			pstmt.executeUpdate();
@@ -88,8 +88,8 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			pstmt.setString(5, bean.getPhoneNo());
 			pstmt.setString(6, bean.getCreatedBy());
 			pstmt.setString(7, bean.getModifiedBy());
-			pstmt.setTimestamp(8, bean.getCreateDatetime());
-			pstmt.setTimestamp(9, bean.getCreateDatetime());
+			pstmt.setTimestamp(8, bean.getCreatedDatetime());
+			pstmt.setTimestamp(9, bean.getCreatedDatetime());
 			pstmt.setLong(10, bean.getId());
 			
 			pstmt.executeUpdate();

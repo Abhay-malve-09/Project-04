@@ -52,7 +52,7 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 			pstmt.setInt(7, bean.getMaths());
 			pstmt.setString(8, bean.getCreatedBy());
 			pstmt.setString(9, bean.getModifiedBy());
-			pstmt.setTimestamp(10, bean.getCreateDatetime());
+			pstmt.setTimestamp(10, bean.getCreatedDatetime());
 			pstmt.setTimestamp(11, bean.getModifiedDatetime());
 			
 			pstmt.executeUpdate();
@@ -108,7 +108,7 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 			pstmt.setInt(6, bean.getMaths());
 			pstmt.setString(7, bean.getCreatedBy());
 			pstmt.setString(8, bean.getModifiedBy());
-			pstmt.setTimestamp(9, bean.getCreateDatetime());
+			pstmt.setTimestamp(9, bean.getCreatedDatetime());
 			pstmt.setTimestamp(10, bean.getModifiedDatetime());
 			pstmt.setLong(11, bean.getId());
 			
@@ -172,8 +172,8 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 				sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
 			}
 
-			if (bean.getCreateDatetime() != null) {
-				sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+			if (bean.getCreatedDatetime() != null) {
+				sql.append(" and createdDateTime like '" + bean.getCreatedDatetime() + "%'");
 			}
 
 			if (bean.getModifiedDatetime() != null) {

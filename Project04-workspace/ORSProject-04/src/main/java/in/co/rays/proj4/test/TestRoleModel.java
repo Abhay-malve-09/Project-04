@@ -35,7 +35,7 @@ public class TestRoleModel {
 		bean.setDescription("KIOSK Role");
 		bean.setCreatedBy("root");
 		bean.setModifiedBy("root");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		
 		model.add(bean);
@@ -56,7 +56,7 @@ public class TestRoleModel {
 		bean.setDescription("Admin role");
 		bean.setCreatedBy("root");
 		bean.setModifiedBy("root");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		
 		model.update(bean);
@@ -73,7 +73,7 @@ public class TestRoleModel {
 		System.out.println(bean.getDescription());
 		System.out.println(bean.getCreatedBy());
 		System.out.println(bean.getModifiedBy());
-		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
 		
 	}
@@ -96,7 +96,7 @@ public class TestRoleModel {
 			System.out.println(bean.getDescription());
 			System.out.println(bean.getCreatedBy());
 			System.out.println(bean.getModifiedBy());
-			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getCreatedDatetime());
 			System.out.println(bean.getModifiedDatetime());
 			System.out.println("----------------------");
 		}

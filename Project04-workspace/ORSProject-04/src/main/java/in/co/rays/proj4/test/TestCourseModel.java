@@ -31,7 +31,7 @@ public class TestCourseModel {
 		bean.setDuration("80 Days");
 		bean.setCreatedBy("Abhay");
 		bean.setModifiedBy("Abhay");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
 		model.add(bean);
@@ -48,7 +48,7 @@ public class TestCourseModel {
 		bean.setDuration("80 Days-");
 		bean.setCreatedBy("Abhay");
 		bean.setModifiedBy("Abhay");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		
 		model.update(bean);
@@ -68,7 +68,7 @@ public class TestCourseModel {
 		System.out.println(bean.getDuration());
 		System.err.println(bean.getCreatedBy());
 		System.out.println(bean.getModifiedBy());
-		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
 		
 		
@@ -93,7 +93,7 @@ public class TestCourseModel {
 			System.out.println(bean.getDuration());
 			System.err.println(bean.getCreatedBy());
 			System.out.println(bean.getModifiedBy());
-			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getCreatedDatetime());
 			System.out.println(bean.getModifiedDatetime());
 			System.out.println("---------------------");
 		}

@@ -38,13 +38,13 @@ public class TestUserModel {
 		bean.setRoleId(5); 
 		bean.setUnsuccessfulLogin(0);
 		bean.setGender("Male");
-		bean.setLastLogin(sdf.parse("2026-09-22"));
+//		bean.setLastLogin(sdf.parse("2026-09-22"));
 		bean.setUserLock("N");
 		bean.setRegisteredIp("192.168.0.101");
 		bean.setLastLoginIp("192.168.0.115");
 		bean.setCreatedBy("Abhay");
 		bean.setModifiedBy("Abhay");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		
 		model.add(bean);
@@ -65,13 +65,13 @@ public class TestUserModel {
 		bean.setRoleId(1); 
 		bean.setUnsuccessfulLogin(0);
 		bean.setGender("Male");
-		bean.setLastLogin(sdf.parse("2026-09-23"));
+//		bean.setLastLogin(sdf.parse("2026-09-23"));
 		bean.setUserLock("N");
 		bean.setRegisteredIp("127.0.0.1");
 		bean.setLastLoginIp("127.0.0.1");
 		bean.setCreatedBy("Abhay");
 		bean.setModifiedBy("Abhay");
-		bean.setCreateDatetime(new Timestamp(new Date().getTime()));
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));	
 		
 		model.update(bean);
@@ -101,7 +101,7 @@ public class TestUserModel {
 		System.out.println(bean.getLastLoginIp());
 		System.out.println(bean.getCreatedBy());
 		System.out.println(bean.getModifiedBy());
-		System.out.println(bean.getCreateDatetime());
+		System.out.println(bean.getCreatedDatetime());
 		System.out.println(bean.getModifiedDatetime());
 		
 		
@@ -133,7 +133,7 @@ public class TestUserModel {
 			System.out.println(bean.getLastLoginIp());
 			System.out.println(bean.getCreatedBy());
 			System.out.println(bean.getModifiedBy());
-			System.out.println(bean.getCreateDatetime());
+			System.out.println(bean.getCreatedDatetime());
 			System.out.println(bean.getModifiedDatetime());
 			System.out.println("----------------------");
 		}

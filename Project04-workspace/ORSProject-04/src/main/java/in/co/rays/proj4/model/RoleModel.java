@@ -31,7 +31,7 @@ public class RoleModel extends BaseModel<RoleBean>{
 			pstmt.setString(3, bean.getDescription());
 			pstmt.setString(4, bean.getCreatedBy());
 			pstmt.setString(5, bean.getModifiedBy());
-			pstmt.setTimestamp(6, bean.getCreateDatetime());
+			pstmt.setTimestamp(6, bean.getCreatedDatetime());
 			pstmt.setTimestamp(7, bean.getModifiedDatetime());
 			
 			pstmt.executeUpdate();
@@ -65,7 +65,7 @@ public class RoleModel extends BaseModel<RoleBean>{
 			pstmt.setString(2, bean.getDescription());
 			pstmt.setString(3, bean.getCreatedBy());
 			pstmt.setString(4, bean.getModifiedBy());
-			pstmt.setTimestamp(5, bean.getCreateDatetime());
+			pstmt.setTimestamp(5, bean.getCreatedDatetime());
 			pstmt.setTimestamp(6, bean.getModifiedDatetime());
 			pstmt.setLong(7,bean.getId());
 			
@@ -111,8 +111,8 @@ public class RoleModel extends BaseModel<RoleBean>{
 				sql.append(" and modifiedBy like '" + bean.getModifiedBy() + "%'");
 			}
 			
-			if (bean.getCreateDatetime() != null) {
-				sql.append(" and createdDateTime like '" + bean.getCreateDatetime() + "%'");
+			if (bean.getCreatedDatetime() != null) {
+				sql.append(" and createdDateTime like '" + bean.getCreatedDatetime() + "%'");
 			}
 			
 			if (bean.getModifiedDatetime() != null) {

@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -10,18 +10,23 @@
 	left: 0;
 	width: 100%;
 	bottom: 0;
-	background-color: white;
-	color: black;
+	background: -color: white;
+	coloe: black;
 	text-align: center;
 }
 </style>
 
 </head>
+
 <body>
+
 	<div id="footer">
+
 		<hr>
-		<h3>All rights reserved by Rays EdTech, SunilOS Infotech Pvt Ltd
-			Copyright © 2026</h3>
+
+		<H3>All rights reserved by Rays EdTech, SunilOS Infotech Pvt Ltd
+			Copyright &copy; 2026</H3>
+
 	</div>
 </body>
 </html>

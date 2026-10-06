@@ -69,5 +69,5 @@ public class EmailMessage {
 	public void setMessageType(int messageType) {
 		this.messageType = messageType;
 	}
-	
+
 }
