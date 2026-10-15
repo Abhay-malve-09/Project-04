@@ -1,6 +1,8 @@
-<%@page import="in.co.rays.proj4.controller.BaseCtl"%>
-<%@page import="in.co.rays.proj4.controller.ORSView"%>
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
+<%@page import="in.co.rays.proj4.bean.RoleBean"%>
+<%@page import="in.co.rays.proj4.controller.RoleCtl"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
+<%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,59 +13,65 @@
 </head>
 <body>
 
-    <%@ include file="Header.jsp"%>
-
+	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.RoleBean"
+		scope="request"></jsp:useBean>
 	<%
-String _suc = ServletUtility.getSuccessMessage(request);
-String _err = ServletUtility.getErrorMessage(request);
-%>
+	String succ = ServletUtility.getSuccessMessage(request);
+	String error = ServletUtility.getErrorMessage(request);
+	/* RoleBean bean = (RoleBean) request.getAttribute("bean"); */       //iski jagah <jsp:useBean> kra he use
+	%>
 
+	<%@ include file="Header.jsp"%>
 
-	<form action="<%=ORSView.ROLE_CTL %>" method="post">
+	<div align="center">
 
-		<div align="center">
+		<h1><%=bean != null && bean.getId() > 0 ? "Update Role" : "Add Role"%></h1>
 
-			<h1>Add Role</h1>
+		<h3 style="color: green"><%=succ%></h3>
+		<h3 style="color: red"><%=error%></h3>
 
-			<%-- <h3 style="color: green"><%=_suc != null ? _suc : "" %></h3>
-			<h3 style="color: red"><%=_err != null ? _err : "" %></h3> --%>
-			
-				<h3 style="color: green"><%=_suc%></h3>
-			<h3 style="color: red"><%=_err%></h3>
+		<form action="<%=ORSView.ROLE_CTL%>" method="post">
+
+			<input type="hidden" name="id"
+				value="<%=DataUtility.getStringData(bean.getId())%>">
 
 			<table>
 
 				<tr>
-					<th>Name<font color="red">*</font></th>
-					<td><input type="text" name="name" value=""
-						placeholder="enter role name"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("name", request) %></td>
-				</tr>
 
-				<tr>
-
-					<th>Description<font color="red">*</font></th>
-					<td><input type="text" name="description" value=""
-						placeholder="enter role description"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("description", request) %></td>
+					<th align="left">Name<font color="red">*</font></th>
+					<td><input type="text" name="name"
+						placeholder="enter role name"
+						value="<%=DataUtility.getStringData(bean.getName())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("name", request)%></td>
 
 				</tr>
 
+
 				<tr>
 
+					<th align="left">Description<font color="red">*</font></th>
+					<td><input type="text" name="description"
+						placeholder="enter description"
+						value="<%=DataUtility.getStringData(bean.getDescription())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("description", request)%></td>
+
+				</tr>
+
+				<tr>
 					<th></th>
-					<td><input type ="submit" name="operation"
-							value="<%=BaseCtl.OP_SAVE %>"></td>
-
+					<td><input type="submit" name="operation"
+						value="<%=RoleCtl.OP_SAVE%>"></td>
 				</tr>
-
+				
 			</table>
 
 
-		</div>
 
+		</form>
+	</div>
 
-	</form>
 	<%@ include file="Footer.jsp"%>
+
 </body>
 </html>

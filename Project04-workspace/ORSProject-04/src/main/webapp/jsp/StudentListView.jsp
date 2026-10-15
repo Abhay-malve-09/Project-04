@@ -1,188 +1,112 @@
-<%@page import="in.co.rays.proj4.bean.StudentBean"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
-<%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="java.util.Iterator"%>
+<%@page import="in.co.rays.proj4.bean.StudentBean"%>
 <%@page import="java.util.List"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Student List</title>
+<title>Insert title here</title>
 </head>
-
 <body>
 
-<%@ include file="Header.jsp"%>
+	<%
+	String succ = ServletUtility.getSuccessMessage(request);
+	String error = ServletUtility.getErrorMessage(request);
 
-<%
-int pageNo = ServletUtility.getPageNo(request);
-int pageSize = ServletUtility.getPageSize(request);
-int index = ((pageNo - 1) * pageSize) + 1;
+	List<StudentBean> list = ServletUtility.getList(request);
 
-List<StudentBean> list = ServletUtility.getList(request);
-Iterator<StudentBean> it = list.iterator();
+	List<StudentBean> nextList = (List<StudentBean>) request.getAttribute("nextList");
 
-String _suc = ServletUtility.getSuccessMessage(request);
-String _err = ServletUtility.getErrorMessage(request);
-%>
+	int pageNo = ServletUtility.getPageNo(request);
+	int pageSize = ServletUtility.getPageSize(request);
 
-<form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
+	int index = (pageNo - 1) * pageSize + 1;
+
+	Iterator<StudentBean> it = list.iterator();
+	%>
+
+	<%@ include file="Header.jsp"%>
 
 	<div align="center">
 
 		<h1>Student List</h1>
+		<h3 style="color: green"><%=succ%></h3>
+		<h3 style="color: red"><%=error%></h3>
 
-		<h3 style="color: green"><%=_suc != null ? _suc : ""%></h3>
-		<h3 style="color: red"><%=_err != null ? _err : ""%></h3>
+		<form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
 
-		<input type="hidden" name="pageNo" value="<%=pageNo%>">
-		<input type="hidden" name="pageSize" value="<%=pageSize%>">
+			<table border="1" width="100%">
 
-		<table>
+				<tr style="background-color: skyblue">
 
-			<tr>
+					<th><input type="checkbox"
+						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select
+						All</th>
+				
+					<th>S No.</th>
+					<th>Id</th>
+					<th>College Name</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>Mobile Number</th>
+					<th>College ID</th>
+					<th>DOB</th>
+					<th>Edit</th>
+					
+				</tr>
 
-				<td>
-					<input type="text"
-						name="firstName"
-						value=""
-						placeholder="search by first name">
-				</td>
+				<%
+				while (it.hasNext()) {
+					StudentBean bean = it.next();
+				%>
 
-				<td>
-					<input type="text"
-						name="lastName"
-						value=""
-						placeholder="search by last name">
-				</td>
+				<tr align="center">
 
-				<td>
-					<input type="text"
-						name="mobileNo"
-						value=""
-						placeholder="search by mobile no">
-				</td>
+					<td><input type="checkbox" name="ids"
+						value="<%=bean.getId()%>"></td>
 
-				<td>
-					<input type="text"
-						name="email"
-						value=""
-						placeholder="search by email">
-				</td>
+					<td><%=index++%></td>
+					<td><%=bean.getId()%></td>
+					<td><%=bean.getCollegeName()%></td>
+					<td><%=bean.getFirstName()%></td>
+					<td><%=bean.getLastName()%></td>
+					<td><%=bean.getEmail()%></td>
+					<td><%=bean.getMobileNo()%></td>
+					<td><%=bean.getCollegeId()%></td>
+					<td><%=bean.getDateOfBirth()%></td>
+					
+					<td><a href="<%=ORSView.STUDENT_CTL + "?id=" + bean.getId()%>">Edit</a></td>
+				</tr>
 
-				<td>
-					<input type="submit"
-						name="operation"
-						value="<%=BaseCtl.OP_SEARCH%>">
-				</td>
+				<%
+				}
+				%>
 
-			</tr>
+			</table>
 
-		</table>
+			<table width="100%">
+				<input type="hidden" name="pageNo" value="<%=pageNo%>">
+				<tr>
+					<td><input type="submit" name="operation"
+						<%=pageNo == 1 ? "disabled" : ""%>
+						value="<%=BaseCtl.OP_PREVIOUS%>"></td>
+					<td align="center"><input type="submit" name="operation"
+						value="<%=BaseCtl.OP_DELETE%>"></td>
+					<td align="right"><input type="submit" name="operation"
+						<%=nextList.size() == 0 ? "disabled" : ""%>
+						value="<%=BaseCtl.OP_NEXT%>"></td>
+				</tr>
+			</table>
 
-
-		<table border="1px" width="100%">
-
-			<tr style="background-color: skyblue">
-
-				<th>S.No</th>
-				<th>FirstName</th>
-				<th>LastName</th>
-				<th>DOB</th>
-				<th>MobileNo</th>
-				<th>Email</th>
-				<th>CollegeId</th>
-				<th>CollegeName</th>
-
-			</tr>
-
-
-			<%
-			while (it.hasNext()) {
-
-				StudentBean bean = it.next();
-			%>
-
-			<tr align="center" style="background-color: lightgrey">
-
-				<td>
-					<%=index++%>
-				</td>
-
-				<td>
-					<%=bean.getFirstName()%>
-				</td>
-
-				<td>
-					<%=bean.getLastName()%>
-				</td>
-
-				<td>
-					<%=bean.getDob()%>
-				</td>
-
-				<td>
-					<%=bean.getMobileNo()%>
-				</td>
-
-				<td>
-					<%=bean.getEmail()%>
-				</td>
-
-				<td>
-					<%=bean.getCollegeId()%>
-				</td>
-
-				<td>
-					<%=bean.getCollegeName()%>
-				</td>
-
-			</tr>
-
-			<%
-			}
-			%>
-
-		</table>
+		</form>
 
 	</div>
 
-
-	<table width="100%">
-
-		<tr>
-
-			<td>
-				<input type="submit"
-					name="operation"
-					<%=pageNo == 1 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_PREVIOUS%>">
-			</td>
-
-			<td align="center">
-				<input type="submit"
-					name="operation"
-					value="<%=BaseCtl.OP_DELETE%>">
-			</td>
-
-			<td align="right">
-				<input type="submit"
-					name="operation"
-					<%=list.size() < 10 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_NEXT%>">
-			</td>
-
-		</tr>
-
-	</table>
-
-</form>
-
-<%@ include file="Footer.jsp"%>
-
+	<%@ include file="Footer.jsp"%>
 </body>
 </html>

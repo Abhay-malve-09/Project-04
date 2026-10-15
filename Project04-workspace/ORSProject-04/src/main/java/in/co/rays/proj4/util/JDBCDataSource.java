@@ -12,7 +12,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public final class JDBCDataSource { // class name
 
-	private static final JDBCDataSource jdbc = null;  // static  variable
+	private static JDBCDataSource jdbc = null;  // static  variable
 	private ComboPooledDataSource cpds = null; 
 	
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.System");
@@ -43,7 +43,10 @@ public final class JDBCDataSource { // class name
 	private static JDBCDataSource getInstance() {  //getInstance method
 		
 		if(jdbc == null) {
-			return new JDBCDataSource();
+			
+			jdbc =  new JDBCDataSource();
+			
+			return jdbc;
 			
 		}
 		

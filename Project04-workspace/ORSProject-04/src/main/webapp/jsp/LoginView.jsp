@@ -18,9 +18,6 @@ String error = ServletUtility.getErrorMessage(request);
 	<%@ include file="Header.jsp"%>
 
 	<div align="center">
-
-	<h3 style="color: green"><%=succ%></h3>
-	<h3 style="color: red"><%=error%></h3>
 	
 		<h1>Login</h1>
 		

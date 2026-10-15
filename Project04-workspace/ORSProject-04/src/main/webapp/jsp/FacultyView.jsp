@@ -1,0 +1,150 @@
+<%@page import="in.co.rays.proj4.controller.FacultyCtl"%>
+<%@page import="org.apache.logging.log4j.core.net.Facility"%>
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
+<%@page import="in.co.rays.proj4.util.ServletUtility"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.FacultyBean"
+		scope="request"></jsp:useBean>
+
+	<%
+	String succ = ServletUtility.getSuccessMessage(request);
+	String error = ServletUtility.getErrorMessage(request);
+	%>
+
+	<%@ include file="Header.jsp"%>
+
+	<div align="center">
+
+		<h1><%=bean != null && bean.getId() > 0 ? "Update Faculty" : "Add Faculty"%></h1>
+
+		<h3 style="color: green"><%=succ%></h3>
+		<h3 style="color: red"><%=error%></h3>
+
+		<form action="<%=ORSView.FACULTY_CTL%>" method="post">
+
+			<input type="hidden" name="id"
+				value="<%=DataUtility.getStringData(bean.getId())%>">
+
+			<table>
+
+				<tr>
+
+					<th align="left">First Name<font color="red">*</font></th>
+					<td><input type="text" name="firstName"
+						placeholder="enter your first name"
+						value="<%=DataUtility.getStringData(bean.getFirstName())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("firstName", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">Last Name<font color="red">*</font></th>
+					<td><input type="text" name="lastName"
+						placeholder="enter your last name"
+						value="<%=DataUtility.getStringData(bean.getLastName())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("lastName", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">Email<font color="red">*</font></th>
+					<td><input type="text" name="email"
+						placeholder="enter your email "
+						value="<%=DataUtility.getStringData(bean.getEmail())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("email", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">Mobile No.<font color="red">*</font></th>
+					<td><input type="text" name="mobileNo"
+						placeholder="enter your mobileNo "
+						value="<%=DataUtility.getStringData(bean.getMobileNo())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("mobileNo", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">Address<font color="red">*</font></th>
+					<td><input type="text" name="address"
+						placeholder="enter your address "
+						value="<%=DataUtility.getStringData(bean.getAddress())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("address", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">College<font color="red">*</font></th>
+
+					<td><select name='collegeId'>
+
+							<option selected value=''>---------Select
+								College---------</option>
+							<option value='1'>DAVV</option>
+							<option value='2'>SGSITS</option>
+							<option value='3'>IIT Indore</option>
+							<option value='4'>Medicaps University</option>
+							<option value='5'>IPS Academy</option>
+							<option value='6'>abhyuday university</option>
+
+					</select></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("collegeId", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">Gender<font color="red">*</font></th>
+					<td><select name='gender'>
+
+							<option selected value=''>------------Select-------------</option>
+							<option value='female'>female</option>
+							<option value='male'>male</option>
+
+					</select></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
+
+				</tr>
+
+				<tr>
+
+					<th align="left">DOB<font color="red">*</font></th>
+					<td><input type="date" name="dob"
+						value="<%=DataUtility.getStringData(bean.getDateOfBirth())%>"></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("dob", request)%></td>
+
+				</tr>
+
+
+				<tr>
+
+					<th></th>
+					<td><input type="submit" name="operation"
+						value="<%=FacultyCtl.OP_SAVE%>"></td>
+
+				</tr>
+
+			</table>
+
+		</form>
+
+	</div>
+
+	<%@ include file="Footer.jsp"%>
+
+</body>
+</html>

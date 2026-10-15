@@ -7,55 +7,56 @@ import in.co.rays.proj4.util.DataValidator;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebServlet("/RoleCtl")
+@WebServlet("/ctl/RoleCtl")
 public class RoleCtl extends BaseCtl<RoleBean, RoleModel> {
 
+	
 	@Override
 	protected boolean validate(HttpServletRequest request) {
-	
+
 		boolean pass = true;
 		
-//		if(request.getParameter("name").equals("")) {
-		if(DataValidator.isNull(request.getParameter("name"))) {
-			
-			request.setAttribute("name", "role name is require");
+		if (DataValidator.isNull(request.getParameter("name"))) {
+			request.setAttribute("name", "role name is required");
+			pass = false;
+		}
 		
-		pass = false;
+		if (DataValidator.isNull(request.getParameter("description"))) {
+			request.setAttribute("description", "descripion is required");
+			pass = false;
+		}
 		
+		return pass;
+	
 	}
 	
-//	if (request.getParameter("description").equals("")) {
-		if(DataValidator.isNull(request.getParameter("description"))) {
-			
-		request.setAttribute("description", "description is require");
-		pass = false;
-	}
-	
-	return pass;
-}
 	@Override
 	protected RoleBean populateBean(HttpServletRequest request) {
-		
+
 		RoleBean bean = new RoleBean();
 		
 		bean.setName(DataUtility.getString(request.getParameter("name")));
 		bean.setDescription(DataUtility.getString(request.getParameter("description")));
+		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		
 		populateDTO(bean, request);
 		
-		return bean;
+		return bean;       	     	
+		
+		
 	}
-
+	
+	
 	@Override
-	protected String getView() {
-
-		return ORSView.ROLE_VIEW;
-	}
-
-	@Override
-	protected RoleModel getModel() {
+	public RoleModel getModel() {
 
 		return new RoleModel();
+	}
+
+	@Override
+	public String getView() {
+
+		return ORSView.ROLE_VIEW;
 	}
 
 }

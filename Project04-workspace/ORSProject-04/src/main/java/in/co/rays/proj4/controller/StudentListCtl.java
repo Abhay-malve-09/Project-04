@@ -6,31 +6,36 @@ import in.co.rays.proj4.util.DataUtility;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebServlet("/StudentListCtl")
-public class StudentListCtl extends BaseListCtl<StudentBean, StudentModel> {
-
+@WebServlet("/ctl/StudentListCtl")
+public class StudentListCtl extends BaseListCtl<StudentBean, StudentModel>{
+	
+	
 	@Override
 	protected StudentBean populateBean(HttpServletRequest request) {
+
 		StudentBean bean = new StudentBean();
 
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
-		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
-		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
 		bean.setEmail(DataUtility.getString(request.getParameter("email")));
+		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
+		bean.setCollegeName(DataUtility.getString(request.getParameter("collegeName")));
 		bean.setCollegeId(DataUtility.getLong(request.getParameter("collegeId")));
-
+		bean.setDateOfBirth(DataUtility.getDate(request.getParameter("dob")));
+		
 		return bean;
 	}
 
 	@Override
-	protected String getView() {
-		return ORSView.STUDENT_LIST_VIEW;
+	public StudentModel getModel() {
+		
+		return new StudentModel();
 	}
 
 	@Override
-	protected StudentModel getModel() {
-		return new StudentModel();
+	public String getView() {
+		
+		return ORSView.STUDENT_LIST_VIEW;
 	}
 
 }
