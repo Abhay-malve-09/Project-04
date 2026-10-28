@@ -1,13 +1,17 @@
 
 <!DOCTYPE html>
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.controller.UserRegistrationCtl"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Registration</title>
 </head>
 <body>
+
+<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean"
+scope="request"></jsp:useBean>
 
 <%
 
@@ -33,7 +37,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>FirstName<font color="red">*</font></th>
-					<td><input type="text" name="firstName" value=""
+					<td><input type="text" name="firstName" value="<%=DataUtility.getStringData(bean.getFirstName())%>"
 						placeholder="enter your firstName"></td>
 						<td style="color: red"><%=ServletUtility.getErrorMessage("firstName", request) %></td>
 
@@ -42,7 +46,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>LastName<font color="red">*</font></th>
-					<td><input type="text" name="lastName" value=""
+					<td><input type="text" name="lastName" value="<%=DataUtility.getStringData(bean.getLastName())%>"
 						placeholder="enter your lastName"></td>
 						<td style="color: red"><%=ServletUtility.getErrorMessage("lastName", request) %></td>
 						
@@ -52,7 +56,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>Login<font color="red">*</font></th>
-					<td><input type="text" name="login" value=""
+					<td><input type="text" name="login" value="<%=DataUtility.getStringData(bean.getLogin())%>"
 						placeholder="enter an email"></td>
 						<td style="color: red"><%=ServletUtility.getErrorMessage("login", request) %></td>
 
@@ -61,7 +65,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>Password<font color="red">*</font></th>
-					<td><input type="password" name="password" value=""
+					<td><input type="password" name="password" value="<%=DataUtility.getStringData(bean.getPassword())%>"
 						placeholder="enter an password"></td>
 						<td style="color: red"><%=ServletUtility.getErrorMessage("password", request) %></td>
 
@@ -70,7 +74,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>ConfirmPassword<font color="red">*</font></th>
-					<td><input type="password" name="confirmPassword" value=""
+					<td><input type="password" name="confirmPassword" value="<%=DataUtility.getStringData(bean.getConfirmPassword())%>"
 						placeholder="re-enter your password "></td>
 						<td style="color: red"><%=ServletUtility.getErrorMessage("confirmPassword", request) %></td>
 
@@ -93,7 +97,7 @@ String error = ServletUtility.getErrorMessage(request);
 				<tr>
 
 					<th>DOB<font color="red">*</font></th>
-					<td><input type="date" name="dob" value=""></td>
+					<td><input type="date" name="dob" value="<%=DataUtility.getStringData(bean.getDob())%>"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("dob", request) %></td>
 
 				</tr>

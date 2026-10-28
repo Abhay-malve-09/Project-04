@@ -143,15 +143,15 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 			}
 			
 			if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
-				sql.append(" and collegeName like '" + bean.getCollegeName() + "%'");
+				sql.append(" and college_name like '" + bean.getCollegeName() + "%'");
 			}
 			
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
-				sql.append(" and firstName like '" + bean.getFirstName() + "%'");
+				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
 			}
 			
 			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
-				sql.append(" and lastName like '" + bean.getLastName() + "%'");
+				sql.append(" and last_name like '" + bean.getLastName() + "%'");
 			}
 			
 			if (bean.getEmail() != null && bean.getEmail().length() > 0) {

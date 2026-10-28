@@ -9,15 +9,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add-Role</title>
 </head>
 <body>
 
+
+	<!-- bean ko view pe get kr skte hai -->
 	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.RoleBean"
 		scope="request"></jsp:useBean>
 	<%
 	String succ = ServletUtility.getSuccessMessage(request);
 	String error = ServletUtility.getErrorMessage(request);
+	
+	/*  bean ko view pe get kr skte hai */
 	/* RoleBean bean = (RoleBean) request.getAttribute("bean"); */       //iski jagah <jsp:useBean> kra he use
 	%>
 

@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.StudentCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="in.co.rays.proj4.bean.StudentBean"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Student List</title>
 </head>
 <body>
 
@@ -39,6 +40,17 @@
 
 		<form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
 
+			<table>
+				<tr>
+					<td><input type="text" name="firstName" value=""
+						placeholder="search by firstName"></td>
+					<td><input type="text" name="lastName" value=""
+						placeholder="search by lastName"></td>
+					<td><input type="submit" name="operation"
+						value="<%=StudentCtl.OP_SEARCH%>"></td>
+				</tr>
+			</table>
+
 			<table border="1" width="100%">
 
 				<tr style="background-color: skyblue">
@@ -46,7 +58,7 @@
 					<th><input type="checkbox"
 						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select
 						All</th>
-				
+
 					<th>S No.</th>
 					<th>Id</th>
 					<th>College Name</th>
@@ -57,7 +69,7 @@
 					<th>College ID</th>
 					<th>DOB</th>
 					<th>Edit</th>
-					
+
 				</tr>
 
 				<%
@@ -79,7 +91,7 @@
 					<td><%=bean.getMobileNo()%></td>
 					<td><%=bean.getCollegeId()%></td>
 					<td><%=bean.getDateOfBirth()%></td>
-					
+
 					<td><a href="<%=ORSView.STUDENT_CTL + "?id=" + bean.getId()%>">Edit</a></td>
 				</tr>
 

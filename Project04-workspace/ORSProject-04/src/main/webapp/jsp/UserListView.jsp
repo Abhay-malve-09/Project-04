@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.UserCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="in.co.rays.proj4.bean.RoleBean"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User List</title>
 </head>
 <body>
 
@@ -18,14 +19,14 @@
 	String error = ServletUtility.getErrorMessage(request);
 
 	List<UserBean> list = ServletUtility.getList(request);
-	
-/* 	List<UserBean> nextList = (List<UserBean>) request.getAttribute("nextList"); */
 
- 	int pageNo = ServletUtility.getPageNo(request);
+	/* List<UserBean> nextList = (List<UserBean>) request.getAttribute("nextList");  */ 
+
+	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
-	
+
 	int index = (pageNo - 1) * pageSize + 1;
-	
+
 	Iterator<UserBean> it = list.iterator();
 	%>
 
@@ -40,14 +41,29 @@
 
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
 
+			<table>
+			
+				<tr>
+				
+					<td><input type="text" name="firstName" value=""
+						placeholder="search by firstName"></td>
+					<td><input type="text" name="lastName" value=""
+						placeholder="search by lastName"></td>
+					<td><input type="submit" name="operation"
+						value="<%=UserCtl.OP_SEARCH%>"></td>
+				
+				</tr>
+				
+			</table>
+
 			<table border="1px" width="100%">
 
 				<tr style="background: skyblue">
-				
+
 					<th><input type="checkbox"
 						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select
 						All</th>
-						
+
 					<th>S.No</th>
 					<th>Id</th>
 					<th>First Name</th>
@@ -69,7 +85,7 @@
 
 					<td><input type="checkbox" name="ids"
 						value="<%=bean.getId()%>"></td>
-						
+
 					<td><%=index++%></td>
 					<td><%=bean.getId()%></td>
 					<td><%=bean.getFirstName()%></td>
@@ -78,8 +94,8 @@
 					<td><%=bean.getDob()%></td>
 					<td><%=bean.getRoleId()%></td>
 					<td><%=bean.getGender()%></td>
-					
- 					<td><a href="<%=ORSView.USER_CTL + "?id=" + bean.getId()%>">Edit</a></td>  
+
+					<td><a href="<%=ORSView.USER_CTL + "?id=" + bean.getId()%>">Edit</a></td>
 
 				</tr>
 
@@ -89,8 +105,8 @@
 
 			</table>
 
-			 	<%@ include file="ListFooter.jsp"%>
- 
+			<%@ include file="ListFooter.jsp" %>
+
 
 			<%-- <table width="100%">
 

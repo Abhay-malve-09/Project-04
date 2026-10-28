@@ -8,6 +8,7 @@ import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.BaseModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
+import in.co.rays.proj4.util.MessageSource;
 import in.co.rays.proj4.util.ServletUtility;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -28,150 +29,162 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 	public static final String OP_GO = "Go";
 	public static final String OP_BACK = "Back";
 	public static final String OP_LOG_OUT = "Logout";
-	
-	
+
 	public static final String HAS_ERROR = "haserror";
 	public static final String MESSAGE = "message";
-	
-	
+
 	public static final String MSG_SUCCESS = "success";
 	public static final String MSG_ERROR = "error";
-	
+
 	// check input data enter by user
-	
+
 	protected boolean validate(HttpServletRequest request) {
-		
+
 		return true;
 	}
-	
+
 	// data loaded at the time of HTML page loaded in drop-down list
-	
+
 	protected void preload(HttpServletRequest reuest) {
-	
+
 	}
-	
-	
-	//  get data from view using request.getParameter() method and set into the bean
-	
+
+	// get data from view using request.getParameter() method and set into the bean
+
 	protected B populateBean(HttpServletRequest request) {
-		
+
 		return null;
-		
+
 	}
-	
-	
+
 	// set createdBy, modifiedBy, createdDateTime and modifiedDateTime into bean
-	
+
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
-		
+
 		String createdBy = request.getParameter("createdBy");
 		String modifiedBy = null;
 		UserBean userbean = (UserBean) request.getSession().getAttribute("user");
-		
+
 		if (userbean == null) {
 			createdBy = "root";
-			modifiedBy= "root";
-			
+			modifiedBy = "root";
+
 		} else {
-			
+
 			modifiedBy = userbean.getLogin();
-			
+
 			// if record is created first time
-			
+
 			if ("null".equalsIgnoreCase(createdBy) || DataValidator.isNull(createdBy)) {
-				
+
 				createdBy = modifiedBy;
 			}
 		}
-		
+
 		dto.setCreatedBy(createdBy);
 		dto.setModifiedBy(modifiedBy);
-		
+
 		long cdt = DataUtility.getLong(request.getParameter("createdDateTime"));
-		
+
 		if (cdt > 0) {
 			dto.setCreatedDatetime(DataUtility.getTimestamp(cdt));
-			
+
 		} else {
 			dto.setCreatedDatetime(DataUtility.getCurrentTimestamp());
 		}
-		
+
 		dto.setModifiedDatetime(DataUtility.getCurrentTimestamp());
-		
+
 		return dto;
 	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		long id = DataUtility.getLong(request.getParameter("id"));
-		
+
 		M model = getModel();
-		
+
 		if (id > 0) {
-			
+
 			BaseBean bean = model.findByPk(id);
 			ServletUtility.setBean(bean, request);
-			
+
 		}
-		
+
 		ServletUtility.forward(getView(), request, response);
-		
+
 	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		B bean = populateBean(request);
-		
+
 		M model = getModel();
-		
+
 		try {
-			
-		if (bean.getId() > 0) {
-			
-			model.update(bean);
-			
-			ServletUtility.setSuccessMessage("record updated successfully", request);
-			
-		} else {
-			
-	        model.add(bean);
-			
-			ServletUtility.setSuccessMessage("record saved successfully", request);
-			
-		}
-			
+
+			if (bean.getId() > 0) {
+
+				model.update(bean);
+
+				ServletUtility.setSuccessMessage("record updated successfully", request);
+
+			} else {
+
+				model.add(bean);
+
+				ServletUtility.setSuccessMessage("record saved successfully", request);
+
+			}
+
 		} catch (DuplicateRecordException e) {
 
 			ServletUtility.setErrorMessage("record already exist", request);
 		}
-		
+
+		ServletUtility.setBean(bean, request);
 		ServletUtility.forward(getView(), request, response);
 	}
-	
+
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		System.out.println("service method");
-		
+
 //		if (request.getMethod() == "POST" && validate(request) == false) {
 //			ServletUtility.forward(getView(), request, response);		
 //			return;
 //		}
-		
+
+		// equalsIgnoreCase Case Sensitive hoti hai
+
+		// Email
+		getMessageSource(request);
+
 		if ("POST".equalsIgnoreCase(request.getMethod()) && validate(request) == false) {
+			BaseBean bean = populateBean(request);
+			ServletUtility.setBean(bean, request);
 			ServletUtility.forward(getView(), request, response);
-			
+
 			return;
 		}
-		
+
 		super.service(request, response);
 	}
-	
+
 	public abstract M getModel();
-	
-	
+
 	public abstract String getView();
+	
+	
+	 //Email
+		public MessageSource getMessageSource(HttpServletRequest request) {
+			MessageSource messagesource = MessageSource.getInstance();
+			return messagesource;
+		}
 }

@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.FacultyCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Faculty List</title>
 </head>
 <body>
 
@@ -40,6 +41,21 @@
 
 
 		<form action="<%=ORSView.FACULTY_LIST_CTL%>" method="post">
+		
+		<table>
+
+				<tr>
+
+					<td><input type="text" name="firstName" value=""
+						placeholder="search by firstName"></td>
+						<td><input type="text" name="lastName" value=""
+						placeholder="search by lastName"></td>
+					<td><input type="submit" name="operation"
+						value="<%=FacultyCtl.OP_SEARCH%>"></td>
+
+				</tr>
+
+			</table>
 
 			<table border="1px" width="100%">
 

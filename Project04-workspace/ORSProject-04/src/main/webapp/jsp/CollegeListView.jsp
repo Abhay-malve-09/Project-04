@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.CollegeCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="in.co.rays.proj4.bean.CollegeBean"%>
@@ -10,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>College List</title>
 </head>
 <body>
 
@@ -19,14 +20,14 @@
 	String error = ServletUtility.getErrorMessage(request);
 
 	List<CollegeBean> list = ServletUtility.getList(request);
-	
+
 	List<CollegeBean> nextList = (List<CollegeBean>) request.getAttribute("nextList");
-	
+
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
-	
+
 	int index = (pageNo - 1) * pageSize + 1;
-	
+
 	Iterator<CollegeBean> it = list.iterator();
 	%>
 
@@ -42,8 +43,21 @@
 
 		<form action="<%=ORSView.COLLEGE_LIST_CTL%>" method="post">
 
+			<table>
+
+				<tr>
+
+					<td><input type="text" name="name" value=""
+						placeholder="search by name"></td>
+					<td><input type="submit" name="operation"
+						value="<%=CollegeCtl.OP_SEARCH%>"></td>
+
+				</tr>
+
+			</table>
+
 			<table border="1px" width="100%">
- 
+
 				<tr style="background: skyblue">
 
 					<th><input type="checkbox"
@@ -111,8 +125,8 @@
 
 		</form>
 	</div>
-	
+
 	<%@ include file="Footer.jsp"%>
-	
+
 </body>
 </html>

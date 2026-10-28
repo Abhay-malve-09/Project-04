@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.CourseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="in.co.rays.proj4.bean.CourseBean"%>
 <%@page import="java.util.List"%>
@@ -8,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Course List</title>
 </head>
 <body>
 
@@ -29,11 +30,24 @@
 	<div align="center">
 
 		<h1>Course List</h1>
-		
+
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
 
 		<form action="<%=ORSView.COURSE_LIST_CTL%>" method="post">
+
+			<table>
+
+				<tr>
+
+					<td><input type="text" name="name" value=""
+						placeholder="search by courseName"></td>
+					<td><input type="submit" name="operation"
+						value="<%=CourseCtl.OP_SEARCH%>"></td>
+
+				</tr>
+
+			</table>
 
 			<table border="1px" width="100%">
 
@@ -49,7 +63,7 @@
 					<th>Course Description</th>
 					<th>Course Duration</th>
 					<th>Edit</th>
-					
+
 				</tr>
 
 
@@ -58,17 +72,17 @@
 					CourseBean bean = it.next();
 				%>
 
-				<tr align="center"   >
-				
+				<tr align="center">
+
 					<td><input type="checkbox" name="ids"
 						value="<%=bean.getId()%>"></td>
-						
+
 					<td><%=index++%></td>
 					<td><%=bean.getId()%></td>
 					<td><%=bean.getName()%></td>
 					<td><%=bean.getDescription()%></td>
 					<td><%=bean.getDuration()%></td>
-					
+
 					<td><a href="<%=ORSView.COURSE_CTL + "?id=" + bean.getId()%>">Edit</a></td>
 				</tr>
 
@@ -85,8 +99,8 @@
 		</form>
 
 	</div>
-	
+
 	<%@ include file="Footer.jsp"%>
-	
+
 </body>
 </html>

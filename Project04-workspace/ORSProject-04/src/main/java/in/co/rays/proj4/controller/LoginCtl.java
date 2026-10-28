@@ -59,46 +59,50 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 	protected UserBean populateBean(HttpServletRequest request) {
 
 		UserBean bean = new UserBean();
-		
+
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));
 		bean.setPassword(DataUtility.getString(request.getParameter("password")));
-				
+
 		return bean;
-		
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String op = DataUtility.getString(request.getParameter("operation"));
 		HttpSession session = request.getSession();
-		
+
 		UserBean bean = populateBean(request);
 		UserModel model = getModel();
 		RoleModel rmodel = new RoleModel();
-		
+
 		if (OP_SIGN_IN.equalsIgnoreCase(op)) {
-			
+
 			bean = model.authenticate(bean.getLogin(), bean.getPassword());
-		
+
 			if (bean != null) {
-				
+
 				session.setAttribute("user", bean);
 				RoleBean rbean = rmodel.findByPk(bean.getRoleId());
 				session.setAttribute("role", rbean.getName());
-				
+
 				ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
-				
+
 				return;
-				
+
 			} else {
-				
+
 				ServletUtility.setErrorMessage("Invalid login or passwod", request);
 			}
-			
+
 		}
-				
+		
+		//Field already fill
+		
+		bean = populateBean(request);
+		ServletUtility.setBean(bean, request);
 		ServletUtility.forward(getView(), request, response);
 	}
 

@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.SubjectCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Subject List</title>
 </head>
 <body>
 
@@ -39,6 +40,20 @@
 		<h3 style="color: red"><%=error%></h3>
 
 		<form action="<%=ORSView.SUBJECT_LIST_CTL%>" method="post">
+
+			<table>
+			
+				<tr>
+				
+					<td><input type="text" name="name" value=""
+						placeholder="search by name"></td>
+					<td><input type="submit" name="operation"
+						value="<%=SubjectCtl.OP_SEARCH%>"></td>
+				
+				</tr>
+				
+			</table>
+
 
 			<table border="1px" width="100%">
 
@@ -95,18 +110,18 @@
 					<td align="center"><input type="submit" name="operation"
 						value="<%=BaseCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
-					<%=nextList.size() == 0 ? "disabled" : "" %>
+						<%=nextList.size() == 0 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_NEXT%>"></td>
 
 				</tr>
-				
+
 			</table>
-			
+
 		</form>
-		
+
 	</div>
-	
+
 	<%@ include file="Footer.jsp"%>
-	
+
 </body>
 </html>
