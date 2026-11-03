@@ -45,7 +45,7 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 
 	// data loaded at the time of HTML page loaded in drop-down list
 
-	protected void preload(HttpServletRequest reuest) {
+	protected void preload(HttpServletRequest request) {
 
 	}
 
@@ -160,6 +160,8 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 //			ServletUtility.forward(getView(), request, response);		
 //			return;
 //		}
+		
+		preload(request);
 
 		// equalsIgnoreCase Case Sensitive hoti hai
 

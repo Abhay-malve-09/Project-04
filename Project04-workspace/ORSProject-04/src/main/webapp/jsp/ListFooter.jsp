@@ -4,7 +4,10 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%
 int pageNo1 = ServletUtility.getPageNo(request);
-List<RoleBean> nextList = (List<RoleBean>) request.getAttribute("nextList");
+
+/* List<RoleBean> nextList = (List<RoleBean>) request.getAttribute("nextList"); */
+
+int nextListSize = (int) request.getAttribute("nextList");
 %>
 
 
@@ -18,7 +21,8 @@ List<RoleBean> nextList = (List<RoleBean>) request.getAttribute("nextList");
 		<td align="center"><input type="submit" name="operation"
 			value="<%=BaseCtl.OP_DELETE%>"></td>
 		<td align="right"><input type="submit" name="operation"
-			<%=nextList.size() == 0 ? "disabled" : ""%>
+			<%-- <%=nextList.size() == 0 ? "disabled" : ""%> --%>
+			<%=nextListSize == 0 ? "disabled" : ""%>
 			value="<%=BaseCtl.OP_NEXT%>"></td>
 	</tr>
 </table>

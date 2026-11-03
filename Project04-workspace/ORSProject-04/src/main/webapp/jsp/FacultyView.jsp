@@ -1,3 +1,6 @@
+<%@page import="in.co.rays.proj4.bean.FacultyBean"%>
+<%@page import="java.util.List"%>
+<%@page import="in.co.rays.proj4.util.HTMLUtility"%>
 <%@page import="in.co.rays.proj4.controller.FacultyCtl"%>
 <%@page import="org.apache.logging.log4j.core.net.Facility"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
@@ -18,6 +21,8 @@
 	<%
 	String succ = ServletUtility.getSuccessMessage(request);
 	String error = ServletUtility.getErrorMessage(request);
+	
+	List<FacultyBean> facultyList = ServletUtility.getList(request);
 	%>
 
 	<%@ include file="Header.jsp"%>
@@ -90,18 +95,7 @@
 
 					<th align="left">College<font color="red">*</font></th>
 
-					<td><select name='collegeId'>
-
-							<option selected value=''>---------Select
-								College---------</option>
-							<option value='1'>DAVV</option>
-							<option value='2'>SGSITS</option>
-							<option value='3'>IIT Indore</option>
-							<option value='4'>Medicaps University</option>
-							<option value='5'>IPS Academy</option>
-							<option value='6'>abhyuday university</option>
-
-					</select></td>
+					<td><%=HTMLUtility.getList("collegeId", DataUtility.getStringData(bean.getCollegeId()), facultyList) %></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("collegeId", request)%></td>
 
 				</tr>

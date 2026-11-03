@@ -21,8 +21,9 @@
 
 	List<CollegeBean> list = ServletUtility.getList(request);
 
-	List<CollegeBean> nextList = (List<CollegeBean>) request.getAttribute("nextList");
-
+	/* List<CollegeBean> nextList = (List<CollegeBean>) request.getAttribute("nextList"); */
+    int nextListSize = (int) request.getAttribute("nextList");
+	
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
 
@@ -47,6 +48,7 @@
 
 				<tr>
 
+					<th>College Name</th>
 					<td><input type="text" name="name" value=""
 						placeholder="search by name"></td>
 					<td><input type="submit" name="operation"
@@ -116,7 +118,7 @@
 					<td align="center"><input type="submit" name="operation"
 						value="<%=BaseCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
-						<%=nextList.size() == 0 ? "disabled" : ""%>
+						<%=nextListSize == 0 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_NEXT%>"></td>
 
 				</tr>

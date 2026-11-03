@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.model.RoleModel"%>
 <%@page import="in.co.rays.proj4.controller.UserCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="java.util.Iterator"%>
@@ -20,7 +21,8 @@
 
 	List<UserBean> list = ServletUtility.getList(request);
 
-	/* List<UserBean> nextList = (List<UserBean>) request.getAttribute("nextList");  */ 
+	/* List<UserBean> nextList = (List<UserBean>) request.getAttribute("nextList");  */
+ 	int nextListSize = (int) request.getAttribute("nextList"); 
 
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
@@ -42,18 +44,20 @@
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
 
 			<table>
-			
+
 				<tr>
-				
+
+					<th>First Name</th>
 					<td><input type="text" name="firstName" value=""
 						placeholder="search by firstName"></td>
+					<th>Last Name</th>
 					<td><input type="text" name="lastName" value=""
 						placeholder="search by lastName"></td>
 					<td><input type="submit" name="operation"
 						value="<%=UserCtl.OP_SEARCH%>"></td>
-				
+
 				</tr>
-				
+
 			</table>
 
 			<table border="1px" width="100%">
@@ -70,7 +74,8 @@
 					<th>Last Name</th>
 					<th>Login</th>
 					<th>DOB</th>
-					<th>Role ID</th>
+					<!-- <th>Role ID</th> -->
+					<th>Role Name</th>
 					<th>Gender</th>
 					<th>Edit</th>
 
@@ -79,6 +84,12 @@
 				<%
 				while (it.hasNext()) {
 					UserBean bean = it.next();
+					
+					/* For Adding column of roleName */
+					RoleBean rbean =  new RoleBean();
+					RoleModel rmodel =  new RoleModel();
+					
+					rbean = rmodel.findByPk(bean.getRoleId());
 				%>
 
 				<tr align="center">
@@ -92,7 +103,8 @@
 					<td><%=bean.getLastName()%></td>
 					<td><%=bean.getLogin()%></td>
 					<td><%=bean.getDob()%></td>
-					<td><%=bean.getRoleId()%></td>
+					<%-- <td><%=bean.getRoleId()%></td> --%>
+					<td><%=rbean.getName() %></td>
 					<td><%=bean.getGender()%></td>
 
 					<td><a href="<%=ORSView.USER_CTL + "?id=" + bean.getId()%>">Edit</a></td>
@@ -105,10 +117,9 @@
 
 			</table>
 
-			<%@ include file="ListFooter.jsp" %>
 
 
-			<%-- <table width="100%">
+			<table width="100%">
 
 				<input type="hidden" name="pageNo" value="<%=pageNo%>">
 
@@ -120,12 +131,12 @@
 					<td align="center"><input type="submit" name="operation"
 						value="<%=BaseCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
-						<%=nextList.size() == 0 ? "disabled" : ""%>
+						<%=nextListSize == 0 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_NEXT%>"></td>
 
 				</tr>
 
-			</table> --%>
+			</table>
 
 		</form>
 
