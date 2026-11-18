@@ -45,6 +45,7 @@
 	<a href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a> |
 	<a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a> |
 	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a> |
+	<a href="<%=ORSView.JAVA_DOC_VIEW %>" target="_blank">Java Doc</a> |
 
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=logout"%>">Logout</a> |
 	<a href="<%=ORSView.CHANGE_PASSWORD_CTL%>">Change Password</a> |

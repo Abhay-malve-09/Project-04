@@ -20,7 +20,8 @@
 
 	List<SubjectBean> list = ServletUtility.getList(request);
 
-	List<SubjectBean> nextList = (List<SubjectBean>) request.getAttribute("nextList");
+	/* List<SubjectBean> nextList = (List<SubjectBean>) request.getAttribute("nextList"); */
+	int nextListSize = (int) request.getAttribute("nextList");
 
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
@@ -35,6 +36,15 @@
 	<div align="center">
 
 		<h1>Subject List</h1>
+		
+		<div class="d-flex gap-2">
+				<a href="<%=ORSView.SUBJECT_REPORT_CTL%>" target="_blank"
+					class="btn btn-sm btn-warning fw-semibold"> <i
+					class="bi bi-file-earmark-pdf me-1"></i> Print PDF
+				</a> <a href="<%=ORSView.SUBJECT_REPORT_CTL%>?type=doc" target="_blank"
+					class="btn btn-sm btn-info fw-semibold"> <i
+					class="bi bi-file-earmark-word me-1"></i> Print DOC
+			</div>
 
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
@@ -45,6 +55,7 @@
 			
 				<tr>
 				
+					<th>Subject Name</th>
 					<td><input type="text" name="name" value=""
 						placeholder="search by name"></td>
 					<td><input type="submit" name="operation"
@@ -110,7 +121,7 @@
 					<td align="center"><input type="submit" name="operation"
 						value="<%=BaseCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
-						<%=nextList.size() == 0 ? "disabled" : ""%>
+						<%=nextListSize == 0 ? "disabled" : ""%>
 						value="<%=BaseCtl.OP_NEXT%>"></td>
 
 				</tr>

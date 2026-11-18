@@ -1,3 +1,4 @@
+
 package in.co.rays.proj4.controller;
 
 import java.io.IOException;
@@ -15,50 +16,121 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Base Controller class that provides common functionality for all
+ * controllers in the application.
+ * 
+ * It handles common operations such as validation, data preloading,
+ * bean population, DTO population, and request processing.
+ *
+ * @param <B> Generic Bean class extending BaseBean
+ * @param <M> Generic Model class extending BaseModel
+ * @author AbhayMalve
+ */
 public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends HttpServlet {
 
+	/** Operation constant for saving a record. */
 	public static final String OP_SAVE = "Save";
+
+	/** Operation constant for cancelling an operation. */
 	public static final String OP_CANCEL = "Cancel";
+
+	/** Operation constant for deleting a record. */
 	public static final String OP_DELETE = "Delete";
+
+	/** Operation constant for listing records. */
 	public static final String OP_LIST = "List";
+
+	/** Operation constant for searching records. */
 	public static final String OP_SEARCH = "Search";
+
+	/** Operation constant for viewing a record. */
 	public static final String OP_VIEW = "View";
+
+	/** Operation constant for navigating to the next record. */
 	public static final String OP_NEXT = "Next";
+
+	/** Operation constant for navigating to the previous record. */
 	public static final String OP_PREVIOUS = "Previous";
+
+	/** Operation constant for creating a new record. */
 	public static final String OP_NEW = "New";
+
+	/** Operation constant for navigating to a specific record or page. */
 	public static final String OP_GO = "Go";
+
+	/** Operation constant for navigating back. */
 	public static final String OP_BACK = "Back";
+
+	/** Operation constant for logging out. */
 	public static final String OP_LOG_OUT = "Logout";
 
+	/** Request attribute key indicating whether an error has occurred. */
 	public static final String HAS_ERROR = "haserror";
+
+	/** Request attribute key used to store messages. */
 	public static final String MESSAGE = "message";
 
+	/** Constant representing a success message. */
 	public static final String MSG_SUCCESS = "success";
+
+	/** Constant representing an error message. */
 	public static final String MSG_ERROR = "error";
 
-	// check input data enter by user
-
+	/**
+	 * Validates the input data entered by the user.
+	 *
+	 * This method can be overridden by child controllers
+	 * to implement their own validation logic.
+	 *
+	 * @param request HttpServletRequest containing user input data
+	 * @return true if data is valid, otherwise false
+	 */
 	protected boolean validate(HttpServletRequest request) {
 
 		return true;
 	}
 
-	// data loaded at the time of HTML page loaded in drop-down list
-
+	/**
+	 * Preloads data required by the view when the HTML page loads.
+	 *
+	 * This method is generally used to load dropdown list data.
+	 * It can be overridden by child controllers.
+	 *
+	 * @param request HttpServletRequest containing request information
+	 */
 	protected void preload(HttpServletRequest request) {
 
 	}
 
-	// get data from view using request.getParameter() method and set into the bean
-
+	/**
+	 * Populates the bean with data received from the view.
+	 *
+	 * Request parameters are retrieved using request.getParameter()
+	 * and assigned to the corresponding bean properties.
+	 *
+	 * This method should be overridden by child controllers.
+	 *
+	 * @param request HttpServletRequest containing form data
+	 * @return populated bean object
+	 */
 	protected B populateBean(HttpServletRequest request) {
 
 		return null;
 
 	}
 
-	// set createdBy, modifiedBy, createdDateTime and modifiedDateTime into bean
-
+	/**
+	 * Populates common DTO properties such as createdBy, modifiedBy,
+	 * createdDatetime, and modifiedDatetime.
+	 *
+	 * If the user is not logged in, the default user is set to root.
+	 * Otherwise, the logged-in user's login is used.
+	 *
+	 * @param dto BaseBean object to populate
+	 * @param request HttpServletRequest containing user and date information
+	 * @return populated BaseBean object
+	 */
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
 
 		String createdBy = request.getParameter("createdBy");
@@ -74,7 +146,6 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			modifiedBy = userbean.getLogin();
 
 			// if record is created first time
-
 			if ("null".equalsIgnoreCase(createdBy) || DataValidator.isNull(createdBy)) {
 
 				createdBy = modifiedBy;
@@ -98,6 +169,20 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		return dto;
 	}
 
+	/**
+	 * Handles HTTP GET requests.
+	 *
+	 * Retrieves a record from the database using its ID.
+	 * If the ID is greater than zero, the corresponding bean
+	 * is loaded and stored in the request.
+	 *
+	 * Finally, forwards the request to the appropriate view.
+	 *
+	 * @param request HttpServletRequest containing request parameters
+	 * @param response HttpServletResponse used to send the response
+	 * @throws ServletException if a servlet-related error occurs
+	 * @throws IOException if an input/output error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -117,6 +202,23 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 
 	}
 
+	/**
+	 * Handles HTTP POST requests.
+	 *
+	 * Populates the bean using request parameters.
+	 * If the bean ID is greater than zero, the existing record
+	 * is updated; otherwise, a new record is inserted.
+	 *
+	 * Handles duplicate record exceptions and sets appropriate
+	 * success or error messages.
+	 *
+	 * Finally, forwards the request to the appropriate view.
+	 *
+	 * @param request HttpServletRequest containing submitted form data
+	 * @param response HttpServletResponse used to send the response
+	 * @throws ServletException if a servlet-related error occurs
+	 * @throws IOException if an input/output error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -150,6 +252,21 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Processes incoming HTTP requests.
+	 *
+	 * Performs common operations before processing the request:
+	 * 1. Preloads data required by the view.
+	 * 2. Initializes the message source.
+	 * 3. Validates POST request data.
+	 * 4. Forwards invalid data back to the view.
+	 * 5. Delegates request processing to the parent service method.
+	 *
+	 * @param request HttpServletRequest containing client request data
+	 * @param response HttpServletResponse used to send the response
+	 * @throws ServletException if a servlet-related error occurs
+	 * @throws IOException if an input/output error occurs
+	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -179,11 +296,33 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		super.service(request, response);
 	}
 
+	/**
+	 * Returns the model object associated with the controller.
+	 *
+	 * This method must be implemented by child controllers
+	 * to provide their respective model objects.
+	 *
+	 * @return model object
+	 */
 	public abstract M getModel();
 
+	/**
+	 * Returns the view page associated with the controller.
+	 *
+	 * This method must be implemented by child controllers
+	 * to provide their respective view page paths.
+	 *
+	 * @return view page path
+	 */
 	public abstract String getView();
 	
-	
+	/**
+	 * Returns the MessageSource instance used for retrieving
+	 * application messages.
+	 *
+	 * @param request HttpServletRequest containing request information
+	 * @return MessageSource singleton instance
+	 */
 	 //Email
 		public MessageSource getMessageSource(HttpServletRequest request) {
 			MessageSource messagesource = MessageSource.getInstance();

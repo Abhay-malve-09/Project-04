@@ -1,23 +1,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>in.co.rays.proj4</groupId>
 	<artifactId>ORSProject-04</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
 	<name>ORSProject-04 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-	<!-- ===== Properties ===== -->
+	<!-- Properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 	</properties>
 
+	<!-- Dependencies -->
 	<dependencies>
 
+		<!-- Jakarta Servlet API for Tomcat 11 -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -25,6 +30,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- JSP API -->
 		<dependency>
 			<groupId>jakarta.servlet.jsp</groupId>
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -32,60 +38,85 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Jakarta Mail -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>jakarta.mail</artifactId>
 			<version>2.0.1</version>
 		</dependency>
 
+		<!-- C3P0 Connection Pool -->
 		<dependency>
-			<groupId>c3p0</groupId>
+			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
-			<version>0.9.1.2</version>
+			<version>0.9.5.5</version>
 		</dependency>
 
+		<!-- Log4j API -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.20.0</version>
 		</dependency>
 
+		<!-- Log4j Core -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.20.0</version>
 		</dependency>
 
+		<!-- Log4j 1.x Compatibility -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-1.2-api</artifactId>
 			<version>2.20.0</version>
 		</dependency>
 
+		<!-- MySQL Connector -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.30</version>
 		</dependency>
 
+		<!-- Jackson Core -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.15.2</version>
 		</dependency>
 
+		<!-- Jackson Databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.15.2</version>
 		</dependency>
 
-		<!--<dependency>
+		<!-- JasperReports -->
+		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.20.6</version>
-		</dependency>-->
 
+			<!-- Exclude Jaspersoft patched OpenPDF -->
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.librepdf</groupId>
+					<artifactId>openpdf</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Standard OpenPDF from Maven Central -->
+		<dependency>
+			<groupId>com.github.librepdf</groupId>
+			<artifactId>openpdf</artifactId>
+			<version>1.3.30</version>
+		</dependency>
+
+		<!-- JUnit 5 -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
@@ -93,6 +124,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Mockito Core -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
@@ -100,6 +132,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Mockito JUnit Jupiter -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
@@ -108,7 +141,10 @@
 		</dependency>
 
 	</dependencies>
-		<build>
+
+	<!-- Build Configuration -->
+	<build>
+
 		<finalName>ORSProject-04</finalName>
 
 		<plugins>
@@ -117,15 +153,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>3.13.0</version>
 				<configuration>
-					<source>21</source>
-					<target>21</target>
+					<release>21</release>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 
-			<!-- WAR Plugin -->
+			<!-- Maven WAR Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -136,7 +171,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Surefire Plugin - required for JUnit 5 -->
+			<!-- JUnit Surefire Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -146,4 +181,5 @@
 		</plugins>
 
 	</build>
+
 </project>

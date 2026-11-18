@@ -30,6 +30,10 @@
 	int index = (pageNo - 1) * pageSize + 1;
 
 	Iterator<UserBean> it = list.iterator();
+	
+	/* For Adding column of roleName */
+	RoleBean rbean =  new RoleBean();
+	RoleModel rmodel =  new RoleModel();
 	%>
 
 	<%@ include file="Header.jsp"%>
@@ -38,6 +42,15 @@
 
 		<h1>User List</h1>
 
+		<div class="d-flex gap-2">
+				<a href="<%=ORSView.USER_REPORT_CTL%>" target="_blank"
+					class="btn btn-sm btn-warning fw-semibold"> <i
+					class="bi bi-file-earmark-pdf me-1"></i> Print PDF
+				</a> <a href="<%=ORSView.USER_REPORT_CTL%>?type=doc" target="_blank"
+					class="btn btn-sm btn-info fw-semibold"> <i
+					class="bi bi-file-earmark-word me-1"></i> Print DOC
+			</div>
+			
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
 
@@ -84,10 +97,6 @@
 				<%
 				while (it.hasNext()) {
 					UserBean bean = it.next();
-					
-					/* For Adding column of roleName */
-					RoleBean rbean =  new RoleBean();
-					RoleModel rmodel =  new RoleModel();
 					
 					rbean = rmodel.findByPk(bean.getRoleId());
 				%>

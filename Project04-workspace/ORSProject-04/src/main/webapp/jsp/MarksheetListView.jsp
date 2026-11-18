@@ -31,6 +31,16 @@
 	<div align="center">
 
 		<h1>Marksheet List</h1>
+
+		<div class="d-flex gap-2">
+			<a href="<%=ORSView.MARKSHEET_REPORT_CTL%>" target="_blank"
+				class="btn btn-sm btn-warning fw-semibold"> <i
+				class="bi bi-file-earmark-pdf me-1"></i> Print PDF
+			</a> <a href="<%=ORSView.MARKSHEET_REPORT_CTL%>?type=doc" target="_blank"
+				class="btn btn-sm btn-info fw-semibold"> <i
+				class="bi bi-file-earmark-word me-1"></i> Print DOC 
+		</div>
+
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
 
@@ -39,6 +49,7 @@
 
 			<table>
 				<tr>
+					<th>Marksheet Name</th>
 					<td><input type="text" name="name" value=""
 						placeholder="search by name"></td>
 					<td><input type="submit" name="operation"

@@ -20,7 +20,8 @@
 
 	List<FacultyBean> list = ServletUtility.getList(request);
 
-	List<FacultyBean> nextList = (List<FacultyBean>) request.getAttribute("nextList");
+	/* List<FacultyBean> nextList = (List<FacultyBean>) request.getAttribute("nextList"); */
+	int nextListSize = (int) request.getAttribute("nextList");
 
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
@@ -36,19 +37,30 @@
 
 		<h1>Faculty List</h1>
 
+		<div class="d-flex gap-2">
+			<a href="<%=ORSView.FACULTY_REPORT_CTL%>" target="_blank"
+				class="btn btn-sm btn-warning fw-semibold"> <i
+				class="bi bi-file-earmark-pdf me-1"></i> Print PDF
+			</a> <a href="<%=ORSView.FACULTY_REPORT_CTL%>?type=doc" target="_blank"
+				class="btn btn-sm btn-info fw-semibold"> <i
+				class="bi bi-file-earmark-word me-1"></i> Print DOC 
+		</div>
+		
 		<h3 style="color: green"><%=succ%></h3>
 		<h3 style="color: red"><%=error%></h3>
 
 
 		<form action="<%=ORSView.FACULTY_LIST_CTL%>" method="post">
-		
-		<table>
+
+			<table>
 
 				<tr>
 
+					<th>First Name</th>
 					<td><input type="text" name="firstName" value=""
 						placeholder="search by firstName"></td>
-						<td><input type="text" name="lastName" value=""
+					<th>Last Name</th>
+					<td><input type="text" name="lastName" value=""
 						placeholder="search by lastName"></td>
 					<td><input type="submit" name="operation"
 						value="<%=FacultyCtl.OP_SEARCH%>"></td>
@@ -92,7 +104,7 @@
 
 					<td><%=index++%></td>
 					<td><%=bean.getId()%></td>
-					<td><%=bean.getCollegeName() %>
+					<td><%=bean.getCollegeName()%>
 					<td><%=bean.getFirstName()%></td>
 					<td><%=bean.getLastName()%></td>
 					<td><%=bean.getEmail()%></td>
@@ -112,28 +124,29 @@
 
 			</table>
 
-				<table width="100%">
+			<table width="100%">
 
-					<input type="hidden" name="pageNo" value="<%=pageNo%>">
+				<input type="hidden" name="pageNo" value="<%=pageNo%>">
 
-					<tr>
+				<tr>
 
-						<td><input type="submit" name="operation"
-							<%=pageNo == 1 ? "disabled" : ""%>
-							value="<%=BaseCtl.OP_PREVIOUS%>"></td>
-						<td align="center"><input type="submit" name="operation"
-							value="<%=BaseCtl.OP_DELETE%>"></td>
-						<td align="right"><input type="submit" name="operation"
-							<%=nextList.size() == 0 ? "disabled" : ""%>
-							value="<%=BaseCtl.OP_NEXT%>"></td>
+					<td><input type="submit" name="operation"
+						<%=pageNo == 1 ? "disabled" : ""%>
+						value="<%=BaseCtl.OP_PREVIOUS%>"></td>
+					<td align="center"><input type="submit" name="operation"
+						value="<%=BaseCtl.OP_DELETE%>"></td>
+					<td align="right"><input type="submit" name="operation"
+						<%=nextListSize == 0 ? "disabled" : ""%>
+						value="<%=BaseCtl.OP_NEXT%>"></td>
 
-					</tr>
-					
-				</table>
+				</tr>
+
+			</table>
 		</form>
 
 	</div>
-	
-	<%@ include file="Footer.jsp" %>
+
+	<%@ include file="Footer.jsp"%>
+
 </body>
 </html>
