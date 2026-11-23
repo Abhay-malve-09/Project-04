@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
  * Report servlet that generates a Faculty list report in PDF or DOC format.
  * Mapped to {@code /ctl/FacultyReportCtl}; add {@code ?type=doc} for Word output.
  *
- * @author Rays EdTech
+ * @author Abhay Malve
  * @version 1.0
  * @see BaseReportCtl
  */

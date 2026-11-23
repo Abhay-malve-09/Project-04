@@ -1,76 +1,191 @@
+
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
 
+import org.apache.log4j.Logger;
+
+/**
+ * CollegeBean class is used to store and manage college details.
+ * It extends BaseBean to inherit common properties.
+ * 
+ * @author Abhay Malve
+ * @version 1.0
+ */
 public class CollegeBean extends BaseBean {
-	
-	private String name;
-	private String address;
-	private String state;
-	private String city;
-	private String phoneNo;
 
-	public String getName() {
-		return name;
-	}
+    private static final Logger log = Logger.getLogger(CollegeBean.class);
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String name;
 
-	public String getAddress() {
-		return address;
-	}
+    private String address;
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    private String state;
 
-	public String getState() {
-		return state;
-	}
+    private String city;
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    private String phoneNo;
 
-	public String getCity() {
-		return city;
-	}
+    /**
+     * Gets the college name.
+     * 
+     * @return name
+     */
+    public String getName() {
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+        log.debug("getName() method called");
 
-	public String getPhoneNo() {
-		return phoneNo;
-	}
+        return name;
+    }
 
-	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
-	}
+    /**
+     * Sets the college name.
+     * 
+     * @param name
+     */
+    public void setName(String name) {
 
-	@Override
-	public String getValue() {
+        log.debug("setName() method called");
 
-		return name;
-	}
-	
-	@Override
-	public void setResultSet(ResultSet rs) {
+        this.name = name;
+    }
 
-		try {
-			setName(rs.getString("name"));
-			setAddress(rs.getString("address"));
-			setState(rs.getString("state"));
-			setCity(rs.getString("city"));
-			setPhoneNo(rs.getString("phone_no"));
-			
-		} catch (Exception e) {
-			 e.printStackTrace();
-		}
-		
-		super.setResultSet(rs);
-	}
+    /**
+     * Gets the college address.
+     * 
+     * @return address
+     */
+    public String getAddress() {
+
+        log.debug("getAddress() method called");
+
+        return address;
+    }
+
+    /**
+     * Sets the college address.
+     * 
+     * @param address
+     */
+    public void setAddress(String address) {
+
+        log.debug("setAddress() method called");
+
+        this.address = address;
+    }
+
+    /**
+     * Gets the college state.
+     * 
+     * @return state
+     */
+    public String getState() {
+
+        log.debug("getState() method called");
+
+        return state;
+    }
+
+    /**
+     * Sets the college state.
+     * 
+     * @param state
+     */
+    public void setState(String state) {
+
+        log.debug("setState() method called");
+
+        this.state = state;
+    }
+
+    /**
+     * Gets the college city.
+     * 
+     * @return city
+     */
+    public String getCity() {
+
+        log.debug("getCity() method called");
+
+        return city;
+    }
+
+    /**
+     * Sets the college city.
+     * 
+     * @param city
+     */
+    public void setCity(String city) {
+
+        log.debug("setCity() method called");
+
+        this.city = city;
+    }
+
+    /**
+     * Gets the college phone number.
+     * 
+     * @return phoneNo
+     */
+    public String getPhoneNo() {
+
+        log.debug("getPhoneNo() method called");
+
+        return phoneNo;
+    }
+
+    /**
+     * Sets the college phone number.
+     * 
+     * @param phoneNo
+     */
+    public void setPhoneNo(String phoneNo) {
+
+        log.debug("setPhoneNo() method called");
+
+        this.phoneNo = phoneNo;
+    }
+
+    /**
+     * Returns the college name as a value.
+     * 
+     * @return name
+     */
+    @Override
+    public String getValue() {
+
+        log.info("getValue() method called");
+
+        return name;
+    }
+
+    /**
+     * Sets college properties using the values from ResultSet.
+     * 
+     * @param rs ResultSet containing college details
+     */
+    @Override
+    public void setResultSet(ResultSet rs) {
+
+        log.debug("setResultSet() method started");
+
+        try {
+
+            setName(rs.getString("name"));
+            setAddress(rs.getString("address"));
+            setState(rs.getString("state"));
+            setCity(rs.getString("city"));
+            setPhoneNo(rs.getString("phone_no"));
+
+            log.info("College ResultSet values assigned successfully");
+
+        } catch (Exception e) {
+
+            log.error("Error while setting College ResultSet values", e);
+            e.printStackTrace();
+        }
+
+        super.setResultSet(rs);
+    }
 
 }

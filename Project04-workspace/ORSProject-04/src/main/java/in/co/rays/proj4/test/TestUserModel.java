@@ -1,3 +1,4 @@
+
 package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
@@ -11,10 +12,23 @@ import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.model.UserModel;
 
+/**
+ * TestUserModel class is used to test UserModel functionality.
+ * It performs CRUD operations and search operations on user records.
+ *
+ * @author Abhay Malve
+ * @version 1.0
+ */
 public class TestUserModel {
 
 	public static UserModel model = new UserModel();
 	
+	/**
+	 * Main method to execute user model test cases.
+	 *
+	 * @param args command line arguments
+	 * @throws ParseException if date parsing fails
+	 */
 	public static void main(String[] args) throws ParseException {
 		
 //		 testAdd();
@@ -24,6 +38,11 @@ public class TestUserModel {
 //		testSearch();
 	}
 
+	/**
+	 * Tests adding a new user record.
+	 *
+	 * @throws ParseException if date parsing fails
+	 */
 	private static void testAdd() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -50,6 +69,11 @@ public class TestUserModel {
 		model.add(bean);
 	}
 	
+	/**
+	 * Tests updating an existing user record.
+	 *
+	 * @throws ParseException if date parsing fails
+	 */
 	private static void testUpdate() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,11 +101,18 @@ public class TestUserModel {
 		model.update(bean);
 	}
 
+	/**
+	 * Tests deleting a user record using its ID.
+	 */
 	private static void testDelete() {
 		 
 		model.delete(6);
 	}
 	
+	/**
+	 * Tests retrieving a user record using its primary key.
+	 * Displays the user details on the console.
+	 */
 	private static void testFindByPk() {
 		
 		UserBean bean = model.findByPk(2);
@@ -107,6 +138,10 @@ public class TestUserModel {
 		
 	}
 	
+	/**
+	 * Tests searching user records.
+	 * Retrieves and displays a list of user records.
+	 */
 	private static void testSearch() {
 		
 		UserBean bean = new UserBean();

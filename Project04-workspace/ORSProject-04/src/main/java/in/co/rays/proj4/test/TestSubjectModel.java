@@ -1,3 +1,4 @@
+
 package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
@@ -8,10 +9,22 @@ import java.util.List;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.model.SubjectModel;
 
+/**
+ * TestSubjectModel class is used to test SubjectModel functionality.
+ * It performs CRUD operations and search operations on subject records.
+ *
+ * @author Abhay Malve
+ * @version 1.0
+ */
 public class TestSubjectModel {
 
-public static SubjectModel model = new SubjectModel();
+	public static SubjectModel model = new SubjectModel();
 	
+	/**
+	 * Main method to execute subject model test cases.
+	 *
+	 * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 		
 //		testAdd();
@@ -22,6 +35,9 @@ public static SubjectModel model = new SubjectModel();
 		
 	}
 
+	/**
+	 * Tests adding a new subject record.
+	 */
 	private static void testAdd() {
 
 		SubjectBean bean = new SubjectBean();
@@ -38,6 +54,9 @@ public static SubjectModel model = new SubjectModel();
 		
 	}
 
+	/**
+	 * Tests updating an existing subject record.
+	 */
 	private static void testUpdate() {
 		
 		SubjectBean bean = new SubjectBean();
@@ -54,11 +73,18 @@ public static SubjectModel model = new SubjectModel();
 		model.update(bean);
 	}
 
+	/**
+	 * Tests deleting a subject record using its ID.
+	 */
 	private static void testDelete() {
 
 		model.delete(6);
 	}
 
+	/**
+	 * Tests retrieving a subject record using its primary key.
+	 * Displays the subject details on the console.
+	 */
 	private static void testFindByPk() {
 
 		SubjectBean bean = model.findByPk(2);
@@ -72,6 +98,10 @@ public static SubjectModel model = new SubjectModel();
 		System.out.println(bean.getModifiedDatetime());
 	}
 
+	/**
+	 * Tests searching subject records.
+	 * Retrieves and displays a list of subject records.
+	 */
 	private static void testSearch() {
 
 		SubjectBean bean = new SubjectBean();

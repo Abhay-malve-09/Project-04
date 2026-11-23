@@ -1,56 +1,121 @@
+
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
+/**
+ * CourseBean class is used to store and manage course details.
+ * It extends BaseBean to inherit common properties.
+ * 
+ * @author Abhay Malve
+ * @version 1.0
+ */
 public class CourseBean extends BaseBean {
 
-	private String name;
-	private String description;
-	private String duration;
+    private static final Logger log = Logger.getLogger(CourseBean.class);
 
-	public String getName() {
-		return name;
-	}
+    private String name;
+    private String description;
+    private String duration;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Gets the course name.
+     * 
+     * @return name
+     */
+    public String getName() {
+        log.debug("getName() method called");
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * Sets the course name.
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+        log.debug("setName() method called");
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    /**
+     * Gets the course description.
+     * 
+     * @return description
+     */
+    public String getDescription() {
+        log.debug("getDescription() method called");
+        return description;
+    }
 
-	public String getDuration() {
-		return duration;
-	}
+    /**
+     * Sets the course description.
+     * 
+     * @param description
+     */
+    public void setDescription(String description) {
+        log.debug("setDescription() method called");
+        this.description = description;
+    }
 
-	public void setDuration(String duration) {
-		this.duration = duration;
-	}
+    /**
+     * Gets the course duration.
+     * 
+     * @return duration
+     */
+    public String getDuration() {
+        log.debug("getDuration() method called");
+        return duration;
+    }
 
-	@Override
-	public String getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void setResultSet(ResultSet rs) {
+    /**
+     * Sets the course duration.
+     * 
+     * @param duration
+     */
+    public void setDuration(String duration) {
+        log.debug("setDuration() method called");
+        this.duration = duration;
+    }
 
-		try {
-			setName(rs.getString("name"));
-			setDescription(rs.getString("description"));
-			setDuration(rs.getString("duration"));
-		} catch (SQLException e) {
+    /**
+     * Returns the course value.
+     * 
+     * @return null
+     */
+    @Override
+    public String getValue() {
+        log.info("getValue() method called");
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-			e.printStackTrace();
-		}
-		
-		super.setResultSet(rs);
-	}
+    /**
+     * Sets course properties using the values from ResultSet.
+     * 
+     * @param rs ResultSet containing course details
+     */
+    @Override
+    public void setResultSet(ResultSet rs) {
+
+        log.debug("setResultSet() method started");
+
+        try {
+            setName(rs.getString("name"));
+            setDescription(rs.getString("description"));
+            setDuration(rs.getString("duration"));
+
+            log.info("Course ResultSet values assigned successfully");
+
+        } catch (SQLException e) {
+
+            log.error("Error while setting Course ResultSet values", e);
+            e.printStackTrace();
+        }
+
+        super.setResultSet(rs);
+    }
 }

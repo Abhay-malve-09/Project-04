@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
  * Report servlet that generates a Subject list report in PDF or DOC format.
  * Mapped to {@code /ctl/SubjectReportCtl}; add {@code ?type=doc} for Word output.
  *
- * @author Rays EdTech
+ * @author Abhay Malve
  * @version 1.0
  * @see BaseReportCtl
  */

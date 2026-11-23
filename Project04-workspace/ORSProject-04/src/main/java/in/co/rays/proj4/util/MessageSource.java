@@ -18,7 +18,7 @@ public final class MessageSource {
 	}
 
 	private MessageSource(String lang) {
-		rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.message", new Locale(lang));
+		rb = ResourceBundle.getBundle("message", new Locale(lang));
 	}
 
 	private MessageSource(Locale locale) {

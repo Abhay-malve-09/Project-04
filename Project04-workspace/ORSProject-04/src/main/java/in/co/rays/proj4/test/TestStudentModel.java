@@ -1,3 +1,4 @@
+
 package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
@@ -10,10 +11,23 @@ import java.util.List;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.model.StudentModel;
 
+/**
+ * TestStudentModel class is used to test StudentModel functionality.
+ * It performs CRUD operations and search operations on student records.
+ *
+ * @author Abhay Malve
+ * @version 1.0
+ */
 public class TestStudentModel {
 
 	public static StudentModel model = new StudentModel();
 	
+	/**
+	 * Main method to execute student model test cases.
+	 *
+	 * @param args command line arguments
+	 * @throws ParseException if date parsing fails
+	 */
 	public static void main(String[] args) throws ParseException {
 		
 		testAdd();
@@ -23,6 +37,11 @@ public class TestStudentModel {
 //		testSearch();
 	}
 
+	/**
+	 * Tests adding a new student record.
+	 *
+	 * @throws ParseException if date parsing fails
+	 */
 	private static void testAdd() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -43,6 +62,11 @@ public class TestStudentModel {
 		model.add(bean);
 	}
 
+	/**
+	 * Tests updating an existing student record.
+	 *
+	 * @throws ParseException if date parsing fails
+	 */
 	private static void testUpdate() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,11 +89,18 @@ public class TestStudentModel {
 		
 	}
 
+	/**
+	 * Tests deleting a student record using its ID.
+	 */
 	private static void testDelete() {
 
 		model.delete(6);
 	}
 
+	/**
+	 * Tests retrieving a student record using its primary key.
+	 * Displays the student details on the console.
+	 */
 	private static void testFindByPk() {
 
 		StudentBean bean = model.findByPk(2);
@@ -88,6 +119,10 @@ public class TestStudentModel {
 
 	}
 
+	/**
+	 * Tests searching student records.
+	 * Retrieves and displays a list of student records.
+	 */
 	private static void testSearch() {
 
 		StudentBean bean = new StudentBean();
